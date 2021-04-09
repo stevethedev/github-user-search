@@ -1,0 +1,23 @@
+{
+  "name": "github-search",
+  "version": "1.0.0",
+  "private": true,
+  "description": "This TypeScript project provides a basic reimplementation of Github's Search feature using the public API without any authentication steps to be performed by the user.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevethedev/github-user-search.git"
+  },
+  "author": {
+    "name": "Steven Jimenez",
+    "email": "stevenmjimenez@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevethedev/github-user-search/issues"
+  },
+  "homepage": "https://github.com/stevethedev/github-user-search#readme"
+}
