@@ -1,0 +1,9 @@
+:root {
+    --color-background: rgb(1, 4, 9);
+    --color-foreground: rgb(240, 246, 252);
+}
+
+.app {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+}
