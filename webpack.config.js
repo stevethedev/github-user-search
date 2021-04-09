@@ -8,6 +8,8 @@ module.exports = (env, argv) => {
     mode: isProduction ? 'production' : 'development',
     entry: './src/client.ts',
     output: {
+      library: 'stdGithubSearch',
+      libraryTarget: 'umd',
       path: path.resolve(__dirname, 'dist'),
       filename: 'assets/js/client.js',
     },

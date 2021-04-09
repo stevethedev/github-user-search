@@ -5,7 +5,10 @@
   "description": "This TypeScript project provides a basic reimplementation of Github's Search feature using the public API without any authentication steps to be performed by the user.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx webpack --config ./webpack.config.js",
+    "build:watch": "npm run build -- --watch",
+    "run": "npx http-server ./dist",
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",
