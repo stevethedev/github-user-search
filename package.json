@@ -19,5 +19,37 @@
   "bugs": {
     "url": "https://github.com/stevethedev/github-user-search/issues"
   },
-  "homepage": "https://github.com/stevethedev/github-user-search#readme"
+  "homepage": "https://github.com/stevethedev/github-user-search#readme",
+  "devDependencies": {
+    "@teamsupercell/typings-for-css-modules-loader": "^2.5.1",
+    "@types/jest": "^26.0.22",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@types/webpack": "^5.28.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "css-loader": "^5.2.0",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "http-server": "^0.12.3",
+    "jest": "^26.6.3",
+    "style-loader": "^2.0.0",
+    "ts-jest": "^26.5.4",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.4",
+    "typescript-plugin-css-modules": "^3.2.0",
+    "webpack": "^5.31.0",
+    "webpack-cli": "^4.6.0"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.3",
+    "redux": "^4.0.5"
+  }
 }
