@@ -11,6 +11,7 @@ by the user.
 3. Redux for the data-store (Flux pattern)
 4. WebPack to bring it all together
 5. Primarily targeting Firefox
+6. Build the auth token into the source, but keep it out of source-control
 
 ## Capabilities
 

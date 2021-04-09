@@ -1,11 +1,5 @@
-import {render} from 'react-dom';
-import {App} from "./components/App";
-
-export const create = (element: string | Element | DocumentFragment) => {
-  render(App(), getElement(element));
-}
-
-document.dispatchEvent(new Event('github-search-loaded'));
+import { render } from 'react-dom';
+import { App } from './components/App';
 
 function getElement(element: unknown): Element | DocumentFragment {
   if (element instanceof DocumentFragment || element instanceof Element) {
@@ -23,3 +17,7 @@ function getElement(element: unknown): Element | DocumentFragment {
 
   return result;
 }
+
+export const create = (element: string | Element | DocumentFragment): void => {
+  render(App(), getElement(element));
+};

@@ -1,4 +1,5 @@
 const path = require('path');
+const {DefinePlugin} = require('webpack');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -36,5 +37,12 @@ module.exports = (env, argv) => {
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.css'],
     },
+    plugins: [
+      new DefinePlugin({
+        GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN
+          ? JSON.stringify(process.env.GITHUB_AUTH_TOKEN)
+          : 'GITHUB_AUTH_TOKEN'
+      })
+    ]
   };
 };
