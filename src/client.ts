@@ -1,5 +1,5 @@
 import { render } from 'react-dom';
-import { App } from './components/App';
+import { App } from './containers/App';
 
 function getElement(element: unknown): Element | DocumentFragment {
   if (element instanceof DocumentFragment || element instanceof Element) {

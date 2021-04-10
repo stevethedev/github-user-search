@@ -2,8 +2,8 @@ import { request, Token, RequestParameters } from './request';
 
 interface UserSearchParams extends RequestParameters {
   text: string;
-  count?: number;
-  after?: string;
+  count?: number | null;
+  after?: string | null;
 }
 
 interface UserSearchResult {
