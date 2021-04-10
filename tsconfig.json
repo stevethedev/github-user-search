@@ -73,7 +73,8 @@
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "include": [
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "**/*.d.ts"
   ],
   "exclude": [
     "node_modules/*",
