@@ -1,14 +1,18 @@
 :root {
-    --color-background: rgb(1, 4, 9);
+    --color-background: rgb(13, 17, 23);
     --color-foreground: rgb(240, 246, 252);
     --color-text-primary: rgb(201, 209, 217);
     --color-blue: rgb(31, 111, 235);
+    --color-lighten: rgba(255, 255, 255, 0.03);
+    --color-subtle-border: rgb(33, 38, 45);
 
     --font-sans-serif: BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
 
     --text-x-small: 0.75em;
     --text-small: 0.875em;
     --text-normal: 1em;
+
+    --page-width: 44em;
 }
 
 .app {
@@ -17,4 +21,7 @@
 
     font-family: var(--font-sans-serif);
     font-size: var(--text-normal);
+
+    display: flex;
+    flex-direction: column;
 }

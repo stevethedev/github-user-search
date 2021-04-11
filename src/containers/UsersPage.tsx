@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Pagination } from '../components/Pagination';
-import { OnSearchHandler, SearchForm } from '../components/SearchForm';
 import { SearchResults } from '../components/SearchResults';
 import { useSearchSubmit } from '../store/search';
 import { useSearchCount } from '../store/search-count';
@@ -10,7 +9,7 @@ import styles from './UsersPage.module.css';
 
 export const UsersPage = (): JSX.Element => {
   const [tempSearchText] = useSearchText();
-  const [searchText, setSearchText] = useState<string | null>(tempSearchText);
+  const [searchText] = useState<string | null>(tempSearchText);
   const [searchCount] = useSearchCount();
   const searchSubmit = useSearchSubmit();
   const [users] = useSearchUsers();
@@ -19,10 +18,6 @@ export const UsersPage = (): JSX.Element => {
   const pageBuffer = 2;
   const pageEnd = Math.min(/* GitHub hard-coded max */100, Math.ceil(searchCount / pageLen)) + 1;
 
-  const onSearch: OnSearchHandler = async (text) => {
-    await searchSubmit(text, pageLen, pageLen * userPage);
-  };
-
   const onPage = async (page: number) => {
     setUserPage(page);
     await searchSubmit(searchText, pageLen, pageLen * (page - 1));
@@ -30,11 +25,6 @@ export const UsersPage = (): JSX.Element => {
 
   return (
     <article className={styles['results-page']}>
-      <SearchForm
-        onSubmit={onSearch}
-        value={searchText}
-        onChange={setSearchText}
-      />
       <div>
         {searchCount.toLocaleString()}
         {' '}

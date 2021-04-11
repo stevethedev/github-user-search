@@ -10,7 +10,7 @@ export const SearchResult = ({ user }: Props): JSX.Element => {
   const {
     avatarUrl, login, location, email, bio, name,
   } = user;
-  const [firstName, restName] = name?.match(/([^\s]+)(.*)/) ?? [name];
+  const [, firstName, restName] = name?.match(/([^\s]+)(.*)/) ?? [name];
 
   return (
     <div className={styles['search-result']}>
@@ -21,8 +21,9 @@ export const SearchResult = ({ user }: Props): JSX.Element => {
       />
       <div className={styles['search-result__text']}>
         <span className={styles['search-result__user-name']}>
-          <span>{firstName}</span>
-          {restName}
+          <span className={styles['search-result__user-first-name']}>{firstName}</span>
+          {' '}
+          <span>{restName}</span>
         </span>
         <span className={styles['search-result__user-login']}>{login}</span>
         <span className={styles['search-result__user-bio']}>{bio}</span>

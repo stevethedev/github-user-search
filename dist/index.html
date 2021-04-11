@@ -7,9 +7,16 @@
       document.addEventListener('DOMContentLoaded', function() {
         const element = document.createElement('div');
         document.body.appendChild(element);
+        element.className = 'application-container';
         window.stdGithubSearch.create(element);
       });
     </script>
+    <style lang="css">
+        html { margin: 0; min-height: 100vh }
+        body { margin: 0; min-height: 100vh; display: flex; }
+        .application-container { display: flex; flex: 1; }
+        .application-container > * { flex: 1 }
+    </style>
     <script lang="text/javascript" src="./assets/js/client.js"></script>
 </head>
 <body>

@@ -55,6 +55,6 @@
     color: var(--color-blue);
 }
 
-.search-result__user-name:first-child {
-    font-weight: bold;
+.search-result__user-first-name {
+    font-weight: 600;
 }

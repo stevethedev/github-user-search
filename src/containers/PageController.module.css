@@ -1,0 +1,6 @@
+.page-control {
+    flex-direction: column;
+    align-self: center;
+
+    width: var(--page-width);
+}

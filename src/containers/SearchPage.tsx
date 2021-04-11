@@ -6,19 +6,24 @@ import { useSearchText } from '../store/search-text';
 import styles from './SearchPage.module.css';
 
 export const SearchPage = (): JSX.Element => {
-  const [tempSearchText] = useSearchText();
-  const [searchText, setSearchText] = useState<string | null>(tempSearchText);
+  const [sharedSearchText, setSharedSearchText] = useSearchText();
+  const [searchText, setSearchText] = useState<string | null>(sharedSearchText);
   const [, setPage] = usePage();
   const searchSubmit = useSearchSubmit();
 
   const onSearch: OnSearchHandler = async (text) => {
     setPage(Page.Users);
+    setSharedSearchText(text);
     await searchSubmit(text);
   };
 
   return (
     <article className={styles['search-page']}>
-      <SearchForm onSubmit={onSearch} value={searchText} onChange={setSearchText} />
+      <SearchForm
+        onSubmit={onSearch}
+        value={searchText}
+        onChange={setSearchText}
+      />
     </article>
   );
 };

@@ -24,6 +24,7 @@ export const SearchForm = (
   return (
     <div className={styles['search-form']}>
       <input
+        placeholder="Search..."
         className={styles['search-form__input']}
         onKeyPress={onKeyPress}
         value={value}
