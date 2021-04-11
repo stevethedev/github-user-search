@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import styles from './ResultsPage.module.css';
 import { OnSearchHandler, SearchForm } from '../components/SearchForm';
 import { SearchResults } from '../components/SearchResults';
 import { useSearchSubmit } from '../store/search';
-import { Page, usePage } from '../store/pages';
-import { useSearchText } from '../store/search-text';
 import { useSearchCount } from '../store/search-count';
+import { useSearchText } from '../store/search-text';
+import { useSearchUsers } from '../store/search-users';
+import styles from './UsersPage.module.css';
 
-export const ResultsPage = (): JSX.Element => {
+export const UsersPage = (): JSX.Element => {
   const [tempSearchText] = useSearchText();
   const [searchText, setSearchText] = useState<string | null>(tempSearchText);
-  const [, setPage] = usePage();
   const [searchCount] = useSearchCount();
   const searchSubmit = useSearchSubmit();
+  const [users] = useSearchUsers();
 
   const onSearch: OnSearchHandler = async (text) => {
-    setPage(Page.Results);
     await searchSubmit(text);
   };
 
@@ -25,9 +24,9 @@ export const ResultsPage = (): JSX.Element => {
       <div>
         {searchCount.toLocaleString()}
         {' '}
-        Users found
+        users
       </div>
-      <SearchResults />
+      <SearchResults users={users} />
     </article>
   );
 };

@@ -10,6 +10,7 @@ module.exports = (env, argv) => {
     entry: './src/client.ts',
     output: {
       library: 'stdGithubSearch',
+      libraryExport: 'default',
       libraryTarget: 'umd',
       path: path.resolve(__dirname, 'dist'),
       filename: 'assets/js/client.js',

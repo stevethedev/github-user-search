@@ -1,9 +1,9 @@
 import { search } from '../api/user';
-import { useToken } from './token';
-import { useSearchText } from './search-text';
 import { useSearchCount } from './search-count';
-import { useSearchCursor } from './search-cursor';
-import { useSearchResults } from './search-results';
+import { useSearchText } from './search-text';
+import { useSearchUsers } from './search-users';
+import { useToken } from './token';
+import { Users, useUsers } from './users';
 
 export type SearchSubmit = (text: string | null) => Promise<void>;
 
@@ -11,10 +11,10 @@ export const useSearchSubmit = (): SearchSubmit => {
   const [token] = useToken();
   const [searchText, setSearchText] = useSearchText();
   const [, setSearchCount] = useSearchCount();
-  const [searchCursor, setSearchCursor] = useSearchCursor();
-  const [, setSearchResults] = useSearchResults();
+  const [, setUsers] = useUsers();
+  const [, setSearchUsers] = useSearchUsers();
 
-  return async (text) => {
+  return async (text, count?: number, offset?: number) => {
     setSearchText(text);
 
     if (!text) {
@@ -25,23 +25,19 @@ export const useSearchSubmit = (): SearchSubmit => {
 
     if (!isContinuedQuery) {
       setSearchCount(0);
-      setSearchResults([]);
-      setSearchCursor(null);
     }
 
-    const after = isContinuedQuery ? searchCursor : null;
-    const results = await search(token, { text, after });
+    const results = await search(token, { text, count, offset });
     if (!results) {
       return;
     }
 
     setSearchCount(results.count);
-    setSearchCursor(results.cursor);
-    // putSearchResults(results.users);
-
-    // Cursor Logic:
-    // 1. Select way more cursors than I need
-    // 2. Pick out the relevant page-start IDs
-    // 3. Register empty pages for each page-start ID if it doesn't yet exist
+    setSearchUsers(results.users);
+    setUsers(results.users.reduce<Users>((acc, user) => {
+      acc[user.id] = user;
+      return acc;
+    },
+    Object.create(null)));
   };
 };

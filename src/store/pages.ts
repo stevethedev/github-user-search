@@ -7,14 +7,18 @@ import {
 
 export enum Page {
   Search,
-  Results,
+  Users,
 }
 
 interface PageState extends State {
   readonly page: Page;
 }
 
-addReducer((state, a) => {
+interface SetPageAction extends Action<'SET_PAGE'> {
+  page: PageState['page'];
+}
+
+addReducer<PageState>((state, a) => {
   if (isAction<SetPageAction>(a, 'SET_PAGE')) {
     return { ...state, page: a.page };
   }
@@ -36,7 +40,3 @@ export const usePage = (): StateAccessors<PageState['page']> => {
     (page) => dispatch(action<SetPageAction>({ type: 'SET_PAGE', page })),
   ];
 };
-
-interface SetPageAction extends Action<'SET_PAGE'> {
-  page: Page;
-}

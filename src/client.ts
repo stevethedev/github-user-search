@@ -18,6 +18,8 @@ function getElement(element: unknown): Element | DocumentFragment {
   return result;
 }
 
-export const create = (element: string | Element | DocumentFragment): void => {
+const create = (element: string | Element | DocumentFragment): void => {
   render(App(), getElement(element));
 };
+
+export default { create };

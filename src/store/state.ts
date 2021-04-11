@@ -1,10 +1,11 @@
 import { Action } from 'redux';
+import type { ReadonlyDeep } from 'type-fest';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface State {}
+export type State = Record<string, unknown>;
 
-export type Reducer<T extends State=State> = (state: T, action: Action) => T;
-export type StateExtender<T extends State> = (state: State) => T;
+export type Reducer<T extends State = State> = (state: ReadonlyDeep<T>, action: Action) => T;
+export type StateExtender<T extends State> = (state: ReadonlyDeep<Partial<T>>) => T;
 
 const reducers: Reducer[] = [];
 const stateExtenders: StateExtender<State>[] = [];
@@ -29,7 +30,7 @@ export const reducer = (state = initState(), action: Action): State => (
  *
  * @param r The reducer to add to the store.
  */
-export const addReducer = <T extends State=State>(r: Reducer<T>): void => {
+export const addReducer = <T extends State = State>(r: Reducer<T>): void => {
   // @ts-expect-error This happens because State is an empty object.
   reducers.push(r);
 };
@@ -40,6 +41,7 @@ export const addReducer = <T extends State=State>(r: Reducer<T>): void => {
  * @param extender The function to execute when the state is created.
  */
 export const addState = <T extends State>(extender: StateExtender<T>): void => {
+  // @ts-expect-error This happens because State is an empty object.
   stateExtenders.push(extender);
 };
 
@@ -56,4 +58,4 @@ export const isAction = <T extends Action>(a: Action, type: T['type']): a is T =
  */
 export const action = <T extends Action>(a: T): T => a;
 
-export type StateAccessors<T> = [T, (t: T) => void];
+export type StateAccessors<T, S extends (t: T) => void = ((t: T) => void)> = [ReadonlyDeep<T>, S];

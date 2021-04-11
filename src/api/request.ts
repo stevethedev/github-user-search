@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/core';
 import type { Octokit as TOctokit } from '@octokit/core';
 
-const weakmap = new WeakMap<Token, Octokit>();
+const tokenMap = new WeakMap<Token, Octokit>();
 
 const tokenSymbol: unique symbol = Symbol('api-token-symbol');
 
@@ -13,7 +13,7 @@ export const initialize = (auth: string): Token => {
   const octokit = new Octokit({ auth });
   const token: Token = { [tokenSymbol]: true };
 
-  weakmap.set(token, octokit);
+  tokenMap.set(token, octokit);
 
   return token;
 };
@@ -23,7 +23,7 @@ export const request = async (
   query: string,
   params?: RequestParameters,
 ): Promise<unknown | null> => {
-  const result = await weakmap.get(token)?.graphql(query, params);
+  const result = await tokenMap.get(token)?.graphql(query, params);
   return result ?? null;
 };
 

@@ -1,9 +1,14 @@
 import React from 'react';
-import styles from './SearchResults.module.css';
+import { User } from '../api/user';
 import { SearchResult } from './SearchResult';
+import styles from './SearchResults.module.css';
 
-export const SearchResults = (): JSX.Element => (
+interface Props {
+  users: ReadonlyArray<User>;
+}
+
+export const SearchResults = ({ users }: Props): JSX.Element => (
   <div className={styles['search-results']}>
-    <SearchResult />
+    {users.map((user) => <SearchResult key={user.id} user={user} />)}
   </div>
 );

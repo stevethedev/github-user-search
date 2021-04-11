@@ -44,13 +44,13 @@ module.exports = {
     ],
   },
   settings: {
-    'import/extensions': ['.js', '.jsx', '.ts', '.tsx', 'module.css'],
+    'import/extensions': ['.js', '.jsx', '.ts', '.tsx', '.d.ts', 'module.css'],
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx'],
+      '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts'],
     },
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx', 'module.css'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts', 'module.css'],
       },
     },
   },

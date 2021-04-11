@@ -5,8 +5,14 @@ import {
   action, addReducer, addState, isAction,
 } from './state';
 
+export type SearchText = string | null;
+
 interface SearchTextState extends State {
-  readonly searchText: string | null;
+  readonly searchText: SearchText;
+}
+
+interface SetSearchTextAction extends Action<'SET_SEARCH_TEXT'> {
+  searchText: SearchText;
 }
 
 addState<SearchTextState>((state) => ({
@@ -14,7 +20,7 @@ addState<SearchTextState>((state) => ({
   searchText: null,
 }));
 
-addReducer((state, a) => {
+addReducer<SearchTextState>((state, a) => {
   if (isAction<SetSearchTextAction>(a, 'SET_SEARCH_TEXT')) {
     return { ...state, searchText: a.searchText };
   }
@@ -24,14 +30,10 @@ addReducer((state, a) => {
 /**
  * Retrieve the current search-text from the store.
  */
-export const useSearchText = (): StateAccessors<SearchTextState['searchText']> => {
+export const useSearchText = (): StateAccessors<SearchText> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: SearchTextState) => state.searchText),
     (searchText) => dispatch(action<SetSearchTextAction>({ type: 'SET_SEARCH_TEXT', searchText })),
   ];
 };
-
-interface SetSearchTextAction extends Action<'SET_SEARCH_TEXT'> {
-  searchText: string | null;
-}

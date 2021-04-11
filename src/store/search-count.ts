@@ -5,12 +5,14 @@ import {
   action, addReducer, addState, isAction,
 } from './state';
 
+export type SearchCount = number;
+
 interface SearchCountState extends State {
-  readonly searchCount: number;
+  readonly searchCount: SearchCount;
 }
 
 interface SetSearchCountAction extends Action<'SET_SEARCH_COUNT'> {
-  searchCount: number;
+  searchCount: SearchCount;
 }
 
 addState<SearchCountState>((state) => ({
@@ -18,7 +20,7 @@ addState<SearchCountState>((state) => ({
   searchCount: 0,
 }));
 
-addReducer((state, a) => {
+addReducer<SearchCountState>((state, a) => {
   if (isAction<SetSearchCountAction>(a, 'SET_SEARCH_COUNT')) {
     return { ...state, searchCount: a.searchCount };
   }

@@ -12,7 +12,7 @@ export const SearchPage = (): JSX.Element => {
   const searchSubmit = useSearchSubmit();
 
   const onSearch: OnSearchHandler = async (text) => {
-    setPage(Page.Results);
+    setPage(Page.Users);
     await searchSubmit(text);
   };
 
