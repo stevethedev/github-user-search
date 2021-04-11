@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './SearchResult.module.css';
 import { User } from '../api/user';
+import styles from './SearchResult.module.css';
 
 interface Props {
   user: User;

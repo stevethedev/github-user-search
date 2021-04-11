@@ -1,7 +1,7 @@
 import React from 'react';
+import { Page, usePage } from '../store/pages';
 import { SearchPage } from './SearchPage';
 import { UsersPage } from './UsersPage';
-import { Page, usePage } from '../store/pages';
 
 export const PageController = (): JSX.Element => {
   const [page] = usePage();

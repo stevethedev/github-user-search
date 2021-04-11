@@ -5,7 +5,7 @@ import { useSearchUsers } from './search-users';
 import { useToken } from './token';
 import { Users, useUsers } from './users';
 
-export type SearchSubmit = (text: string | null) => Promise<void>;
+export type SearchSubmit = (text: string | null, count?: number, offset?: number) => Promise<void>;
 
 export const useSearchSubmit = (): SearchSubmit => {
   const [token] = useToken();

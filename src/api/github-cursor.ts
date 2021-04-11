@@ -7,7 +7,7 @@
  * value, and has the same behavior as not passing a cursor.
  */
 
-import { isNumber } from '../util';
+import { isNumber } from '../util/types';
 
 /**
  * A zero-cursor that can be used as a sensible default starting value.

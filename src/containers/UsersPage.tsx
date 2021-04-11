@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Pagination } from '../components/Pagination';
 import { OnSearchHandler, SearchForm } from '../components/SearchForm';
 import { SearchResults } from '../components/SearchResults';
 import { useSearchSubmit } from '../store/search';
@@ -13,20 +14,40 @@ export const UsersPage = (): JSX.Element => {
   const [searchCount] = useSearchCount();
   const searchSubmit = useSearchSubmit();
   const [users] = useSearchUsers();
+  const [userPage, setUserPage] = useState(1);
+  const pageLen = 10;
+  const pageBuffer = 2;
+  const pageEnd = Math.min(/* GitHub hard-coded max */100, Math.ceil(searchCount / pageLen)) + 1;
 
   const onSearch: OnSearchHandler = async (text) => {
-    await searchSubmit(text);
+    await searchSubmit(text, pageLen, pageLen * userPage);
+  };
+
+  const onPage = async (page: number) => {
+    setUserPage(page);
+    await searchSubmit(searchText, pageLen, pageLen * (page - 1));
   };
 
   return (
     <article className={styles['results-page']}>
-      <SearchForm onSubmit={onSearch} value={searchText} onChange={setSearchText} />
+      <SearchForm
+        onSubmit={onSearch}
+        value={searchText}
+        onChange={setSearchText}
+      />
       <div>
         {searchCount.toLocaleString()}
         {' '}
         users
       </div>
       <SearchResults users={users} />
+      <Pagination
+        start={1}
+        end={pageEnd}
+        current={userPage}
+        buffer={pageBuffer}
+        onSelected={onPage}
+      />
     </article>
   );
 };

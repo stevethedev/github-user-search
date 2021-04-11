@@ -8,6 +8,8 @@
     "build": "npx webpack --config ./webpack.config.js",
     "build:watch": "npm run build -- --watch",
     "run": "npx http-server ./dist",
+    "lint": "npx eslint",
+    "lint:fix": "npx eslint --fix",
     "test": "npx jest"
   },
   "repository": {

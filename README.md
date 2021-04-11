@@ -15,8 +15,8 @@ by the user.
 
 ## Capabilities
 
-- [ ] As a user, I can search and see a paginated list of results.
-- [ ] As a user, I can navigate through the next and previous pages of the
+- [X] As a user, I can search and see a paginated list of results.
+- [X] As a user, I can navigate through the next and previous pages of the
       paginated results.
 - [X] As a user, I see the total count of search results.
 - [ ] As a user, I see notable information for each search result,

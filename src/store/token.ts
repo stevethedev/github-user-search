@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import type { State } from './state';
 import { initialize, Token } from '../api/request';
+import type { State } from './state';
 import { addState } from './state';
 
 declare const GITHUB_AUTH_TOKEN: string;

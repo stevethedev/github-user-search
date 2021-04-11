@@ -1,0 +1,46 @@
+.button {
+    display: block;
+    min-width: 1em;
+    padding: 0.3125em 0.625em;
+    font-style: normal;
+    line-height: 20px;
+    color: var(--color-text-primary);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: default;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 0.375em;
+}
+
+.button[data-before]:before {
+    content: attr(data-before);
+    margin-right: 0.5em;
+}
+
+.button[data-after]:after {
+    content: attr(data-after);
+    margin-left: 0.5em;
+}
+
+.button:hover {
+    border: 1px solid;
+}
+
+.button--inline {
+    display: inline-block;
+}
+
+.button--blue {
+    background-color: var(--color-blue);
+}
+
+.button--disabled {
+    opacity: 0.5;
+    border-color: transparent;
+}
+
+.button--disabled:hover {
+    border-color: transparent;
+}

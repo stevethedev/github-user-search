@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Action } from 'redux';
 import { User } from '../api/user';
-import { isObject } from '../util';
+import { isObject } from '../util/types';
 import {
-  action,
-  addReducer, addState, isAction, State, StateAccessors,
+  action, addReducer, addState, isAction, State, StateAccessors,
 } from './state';
 import { useUsers } from './users';
 

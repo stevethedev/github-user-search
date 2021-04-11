@@ -1,4 +1,4 @@
-import { isArray } from '../util';
+import { isArray } from '../util/types';
 import { CURSOR_ZERO, decode, encode } from './github-cursor';
 import { request, RequestParameters, Token } from './request';
 
@@ -44,10 +44,13 @@ export const search = async (token: Token, params: UserSearchParams):
     }
   }`;
 
-  const result = await request(token, query, {
+  const queryParams = {
     text: params.text,
-    cursor: encode(params.offset),
-  });
+    after: encode(params.offset),
+    first: params.count,
+  };
+
+  const result = await request(token, query, queryParams);
 
   const searchData = (result as SearchResults | null)?.search;
   if (!searchData || !isArray(searchData.users)) {

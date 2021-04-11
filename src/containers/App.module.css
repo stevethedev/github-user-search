@@ -2,8 +2,9 @@
     --color-background: rgb(1, 4, 9);
     --color-foreground: rgb(240, 246, 252);
     --color-text-primary: rgb(201, 209, 217);
+    --color-blue: rgb(31, 111, 235);
 
-    --font-sans-serif: BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    --font-sans-serif: BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
 
     --text-x-small: 0.75em;
     --text-small: 0.875em;

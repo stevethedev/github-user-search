@@ -1,10 +1,9 @@
-import { Action } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  action,
-  addReducer, addState, isAction, State, StateAccessors,
-} from './state';
+import { Action } from 'redux';
 import { User } from '../api/user';
+import {
+  action, addReducer, addState, isAction, State, StateAccessors,
+} from './state';
 
 export interface Users {
   [id: string]: User | undefined;

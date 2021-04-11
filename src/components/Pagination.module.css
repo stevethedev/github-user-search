@@ -1,0 +1,8 @@
+.pagination {
+    text-align: center;
+    margin: 1em 0;
+}
+
+.pagination__spreader:before {
+    content: '...';
+}

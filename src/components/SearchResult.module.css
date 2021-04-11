@@ -52,6 +52,7 @@
 .search-result__user-name {
     margin-right: 0.7em;
     padding-bottom: 0.25em;
+    color: var(--color-blue);
 }
 
 .search-result__user-name:first-child {

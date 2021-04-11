@@ -1,5 +1,5 @@
-import { Octokit } from '@octokit/core';
 import type { Octokit as TOctokit } from '@octokit/core';
+import { Octokit } from '@octokit/core';
 
 const tokenMap = new WeakMap<Token, Octokit>();
 
