@@ -14,7 +14,7 @@ export const RepositoryListItem = ({ repository }: Props): JSX.Element => (
     <span className={styles['repository-list-item__name']}>
       <Button
         label={repository.resourcePath ?? repository.name ?? repository.url}
-        onClick={() => window.open(repository.url)}
+        href={repository.url}
         borderless
         link
         invert

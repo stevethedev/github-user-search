@@ -1,0 +1,11 @@
+.organization-list-item {
+    display: inline-flex;
+    margin-right: 0.25em;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.organization-list-item__avatar {
+    width: 2em;
+    border-radius: 0.3em;
+}

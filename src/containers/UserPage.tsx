@@ -44,7 +44,7 @@ export const UserPage = (): JSX.Element => {
       <section className={styles['user-page__user-info']}>
         <UserInfo user={user} />
         <div className={styles['user-page__user-button']}>
-          <Button label="Open on GitHub" onClick={() => window.open(user.url)} color="blue" />
+          <Button label="Open on GitHub" href={user.url} color="blue" />
         </div>
         <div className={styles['user-page__user-interactions']}>
           <UserInteractions user={user} />

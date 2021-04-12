@@ -4,9 +4,10 @@ import styles from './Button.module.css';
 
 interface Props extends ClassProps {
   label: string | JSX.Element;
-  onClick: EventHandler<MouseEvent | KeyboardEvent>;
+  onClick?: EventHandler<MouseEvent | KeyboardEvent>;
   before?: string | null;
   after?: string | null;
+  href?: string | null;
 }
 
 interface ClassProps {
@@ -70,24 +71,31 @@ const getClasses = ({
 };
 
 export const Button = ({
-  label, onClick, inline, disabled, color, before, after, borderless, link, invert,
-}: Props): JSX.Element => (
-  <div
-    role="button"
-    tabIndex={0}
-    onClick={disabled ? () => void 0 : onClick}
-    data-before={before}
-    data-after={after}
-    onKeyPress={(event) => (event.key === 'Enter' && !disabled && onClick(event))}
-    className={getClasses({
-      inline, disabled, color, borderless, link, invert,
-    })}
-  >
-    {label}
-  </div>
-);
+  label, onClick, inline, disabled, color, before, after, borderless, link, invert, href,
+}: Props): JSX.Element => {
+  const button = (
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={disabled ? () => void 0 : onClick}
+      data-before={before}
+      data-after={after}
+      onKeyPress={(event: KeyboardEvent) => (event.key === 'Enter' && !disabled && onClick?.(event))}
+      className={getClasses({
+        inline, disabled, color, borderless, link, invert,
+      })}
+    >
+      {label}
+    </div>
+  );
+
+  return href
+    ? (<a className={styles['button-href']} target="_blank" href={href} rel="noreferrer">{button}</a>)
+    : (button);
+};
 
 Button.defaultProps = {
+  onClick: () => void 0,
   inline: false,
   link: false,
   disabled: false,
@@ -96,4 +104,5 @@ Button.defaultProps = {
   after: null,
   borderless: false,
   invert: false,
+  href: null,
 };

@@ -174,7 +174,7 @@ export const read = async (token: Token, params: UserReadParams):
 
   return {
     user: user ? parseUser(user) : null,
-    organizations: [],
+    organizations: user?.organizations.nodes ?? [],
     repositories: user
       ? [
         ...user.pinnedItems.repositories,

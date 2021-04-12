@@ -1,34 +1,39 @@
 .button {
+    font-style: normal;
+    line-height: var(--button-line-height);
+    display: flex;
+    justify-content: center;
+    min-width: var(--button-min-width);
+    padding: var(--button-padding);
+
+    cursor: default;
+    user-select: none;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--button-foreground-color);
+    border: 1px solid var(--button-border-color);
+    border-radius: 0.375em;
+
+    background-color: var(--button-background-color);
+
     --button-foreground-color: var(--color-text-primary);
     --button-background-color: transparent;
     --button-border-color: transparent;
     --button-padding: 0.3125em 0.625em;
     --button-line-height: 1.25em;
     --button-min-width: 1em;
+}
 
-    display: flex;
-    justify-content: center;
-    font-style: normal;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: default;
-    user-select: none;
-
-    min-width: var(--button-min-width);
-    padding: var(--button-padding);
-    line-height: var(--button-line-height);
-    color: var(--button-foreground-color);
-    background-color: var(--button-background-color);
-    border: 1px solid var(--button-border-color);
-
-    border-radius: 0.375em;
+.button-href {
+    text-decoration: none;
 }
 
 .button--color-invert {
     color: var(--button-background-color);
-    background-color: var(--button-foreground-color);
     border-color: transparent;
+    background-color: var(--button-foreground-color);
 }
 
 .button:hover,
@@ -37,29 +42,31 @@
 }
 
 .button[data-before]:before {
-    content: attr(data-before);
     margin-right: 0.5em;
+    content: attr(data-before);
 }
 
 .button[data-after]:after {
-    content: attr(data-after);
     margin-left: 0.5em;
+    content: attr(data-after);
 }
 
 .button--inline-block {
     display: inline-block;
 }
+
 .button--inline-flex {
     display: inline-flex;
 }
-.button--inline-text {
-    --button-padding: inherit;
-    --button-line-height: inherit;
-    --button-min-width: inherit;
 
+.button--inline-text {
     line-height: inherit;
     display: inline;
     vertical-align: inherit;
+
+    --button-padding: inherit;
+    --button-line-height: inherit;
+    --button-min-width: inherit;
 }
 
 .button--blue {
@@ -76,8 +83,8 @@
 
 .button--link:hover,
 .button--link:focus {
-    text-decoration: underline;
     cursor: pointer;
+    text-decoration: underline;
 }
 
 .button--borderless,
