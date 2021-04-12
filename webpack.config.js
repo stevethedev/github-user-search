@@ -1,5 +1,6 @@
 const path = require('path');
 const {DefinePlugin} = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -43,7 +44,8 @@ module.exports = (env, argv) => {
         GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN
           ? JSON.stringify(process.env.GITHUB_AUTH_TOKEN)
           : 'GITHUB_AUTH_TOKEN'
-      })
+      }),
+      new HtmlWebpackPlugin(),
     ]
   };
 };
