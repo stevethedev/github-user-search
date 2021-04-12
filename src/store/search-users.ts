@@ -10,18 +10,21 @@ import { useUsers } from './users';
 
 export type SearchUsers = ReadonlyArray<User['id']>;
 
+const SET_SEARCH_USERS: unique symbol = Symbol('SET_SEARCH_USERS');
+type SET_SEARCH_USERS = typeof SET_SEARCH_USERS;
+
 interface SearchUsersState extends State {
   readonly searchUsers: SearchUsers;
 }
 
-interface SetSearchUsersStateAction extends Action<'SET_SEARCH_USERS'> {
+interface SetSearchUsersStateAction extends Action<SET_SEARCH_USERS> {
   readonly searchUsers: SearchUsers;
 }
 
 addState<SearchUsersState>((state) => ({ ...state, searchUsers: [] }));
 
 addReducer<SearchUsersState>((state, a) => {
-  if (isAction<SetSearchUsersStateAction>(a, 'SET_SEARCH_USERS')) {
+  if (isAction<SetSearchUsersStateAction>(a, SET_SEARCH_USERS)) {
     return { ...state, searchUsers: a.searchUsers };
   }
   return state;
@@ -42,7 +45,7 @@ export const useSearchUsers = (): StateAccessors<User[]> => {
         return acc;
       }, []);
       return dispatch(action<SetSearchUsersStateAction>({
-        type: 'SET_SEARCH_USERS',
+        type: SET_SEARCH_USERS,
         searchUsers,
       }));
     },

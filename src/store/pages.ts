@@ -5,6 +5,9 @@ import {
   action, addReducer, addState, isAction,
 } from './state';
 
+const SET_PAGE: unique symbol = Symbol('SET_PAGE');
+type SET_PAGE = typeof SET_PAGE;
+
 export enum Page {
   Search,
   Users,
@@ -15,12 +18,12 @@ interface PageState extends State {
   readonly page: Page;
 }
 
-interface SetPageAction extends Action<'SET_PAGE'> {
+interface SetPageAction extends Action<SET_PAGE> {
   page: Page;
 }
 
 addReducer<PageState>((state, a) => {
-  if (isAction<SetPageAction>(a, 'SET_PAGE')) {
+  if (isAction<SetPageAction>(a, SET_PAGE)) {
     return { ...state, page: a.page };
   }
   return state;
@@ -38,6 +41,6 @@ export const usePage = (): StateAccessors<PageState['page']> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: PageState) => state.page),
-    (page) => dispatch(action<SetPageAction>({ type: 'SET_PAGE', page })),
+    (page) => dispatch(action<SetPageAction>({ type: SET_PAGE, page })),
   ];
 };

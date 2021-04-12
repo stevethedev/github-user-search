@@ -15,7 +15,10 @@ interface UsersState extends State {
   readonly users: ReadonlyDeep<Users>;
 }
 
-interface SetUsersAction extends Action<'SET_USERS'> {
+const SET_USERS: unique symbol = Symbol('SET_USERS');
+type SET_USERS = typeof SET_USERS;
+
+interface SetUsersAction extends Action<SET_USERS> {
   readonly users: ReadonlyDeep<Users>;
 }
 
@@ -44,7 +47,7 @@ const mergeUsers = (
 addState<UsersState>((state) => ({ ...state, users: Object.create(null) }));
 
 addReducer<UsersState>((state, a) => {
-  if (isAction<SetUsersAction>(a, 'SET_USERS')) {
+  if (isAction<SetUsersAction>(a, SET_USERS)) {
     return {
       ...state,
       users: mergeUsers(state.users, a.users),
@@ -61,6 +64,6 @@ export const useUsers = (): StateAccessors<Users> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: UsersState) => state.users),
-    (users) => dispatch(action<SetUsersAction>({ type: 'SET_USERS', users })),
+    (users) => dispatch(action<SetUsersAction>({ type: SET_USERS, users })),
   ];
 };

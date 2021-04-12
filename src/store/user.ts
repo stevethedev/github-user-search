@@ -14,13 +14,16 @@ interface UserState extends State {
   user: UserIndex | null;
 }
 
-interface SetUserStateAction extends Action<'SET_USER_STATE'> {
+const SET_USER_STATE: unique symbol = Symbol('SET_USER_STATE');
+type SET_USER_STATE = typeof SET_USER_STATE;
+
+interface SetUserStateAction extends Action<SET_USER_STATE> {
   user: UserState['user'];
 }
 
 addState<UserState>((state) => ({ ...state, user: null }));
 addReducer<UserState>((state, a) => {
-  if (isAction<SetUserStateAction>(a, 'SET_USER_STATE')) {
+  if (isAction<SetUserStateAction>(a, SET_USER_STATE)) {
     return { ...state, user: a.user };
   }
   return state;
@@ -31,7 +34,9 @@ export const useUser = (): StateAccessors<User | null> => {
   const [users] = useUsers();
   return [
     useSelector(({ user }: UserState) => users[user ?? ''] ?? null),
-    (user) => dispatch(action<SetUserStateAction>({ type: 'SET_USER_STATE', user: user?.id ?? null })),
+    (user) => dispatch(
+      action<SetUserStateAction>({ type: SET_USER_STATE, user: user?.id ?? null }),
+    ),
   ];
 };
 
