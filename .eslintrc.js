@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  ignorePatterns: ['webpack.config.js'],
+  ignorePatterns: ['webpack.config.ts'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',

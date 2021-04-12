@@ -3,6 +3,7 @@ import type { Token } from '../api/request';
 import { initialize } from '../api/request';
 import type { State } from './state';
 import { addState } from './state';
+import { decode } from '../util/key-codec';
 
 declare const GITHUB_AUTH_TOKEN: string;
 
@@ -12,7 +13,7 @@ interface TokenState extends State {
 
 addState<TokenState>((state) => ({
   ...state,
-  token: initialize(GITHUB_AUTH_TOKEN),
+  token: initialize(decode(GITHUB_AUTH_TOKEN)),
 }));
 
 /**

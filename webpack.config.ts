@@ -1,11 +1,16 @@
-const path = require('path');
-const {DefinePlugin} = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import {DefinePlugin} from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import {encode} from './src/util/key-codec';
 
-module.exports = (env, argv) => {
+module.exports = (env: NodeJS.ProcessEnv, argv: Record<string, string>) => {
   const isProduction = argv.mode === 'production';
 
   console.log(isProduction ? "PRODUCTION BUILD" : 'DEVELOPMENT BUILD');
+
+  global.btoa = function (str) {
+    return Buffer.from(str, 'binary').toString('base64');
+  };
 
   return {
     devtool: !isProduction && 'cheap-module-source-map',
@@ -44,7 +49,7 @@ module.exports = (env, argv) => {
     plugins: [
       new DefinePlugin({
         GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN
-          ? JSON.stringify(process.env.GITHUB_AUTH_TOKEN)
+          ? JSON.stringify(encode(process.env.GITHUB_AUTH_TOKEN))
           : 'GITHUB_AUTH_TOKEN'
       }),
       new HtmlWebpackPlugin(),
