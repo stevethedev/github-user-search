@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { OnSearchHandler } from '../components/SearchForm';
 import { SearchForm } from '../components/SearchForm';
 import { Page, usePage } from '../store/pages';
@@ -7,19 +7,18 @@ import { useSearchText } from '../store/search-text';
 import styles from './SearchPage.module.css';
 
 export const SearchPage = (): JSX.Element => {
-  const [sharedSearchText, setSharedSearchText] = useSearchText();
-  const [searchText, setSearchText] = useState<string | null>(sharedSearchText);
+  const [searchText, setSearchText] = useSearchText();
   const [, setPage] = usePage();
   const searchSubmit = useSearchSubmit();
 
   const onSearch: OnSearchHandler = async (text) => {
-    setPage(Page.Users);
-    setSharedSearchText(text);
     await searchSubmit(text);
+    setPage(Page.Users);
   };
 
   return (
     <article className={styles['search-page']}>
+      <span className={styles['search-page__title']}>GitHub User Search</span>
       <SearchForm
         onSubmit={onSearch}
         value={searchText}

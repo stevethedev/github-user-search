@@ -33,7 +33,7 @@ export const UserPage = (): JSX.Element => {
         </div>
       </section>
       <section className={styles['user-page__user-data']}>
-        <span className={styles['user-page__user-message']}>
+        <span className={styles['user-page__user-message']} style={{ display: user.status ? '' : 'none' }}>
           <UserMessage user={user} />
         </span>
         <div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Page, usePage } from '../store/pages';
+import { PageFooter } from './PageFooter';
 import { SearchPage } from './SearchPage';
 import { UserPage } from './UserPage';
 import { UsersPage } from './UsersPage';
@@ -24,11 +25,17 @@ const getPage = (): JSX.Element => {
   return <></>;
 };
 
+const getHeaderHidden = (): boolean => {
+  const [page] = usePage();
+  return page === Page.Search;
+};
+
 export const PageController = (): JSX.Element => (
   <>
-    <PageHeader />
+    <PageHeader hide={getHeaderHidden()} />
     <section className={styles['page-control']}>
       {getPage()}
     </section>
+    <PageFooter />
   </>
 );
