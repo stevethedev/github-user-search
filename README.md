@@ -19,7 +19,7 @@ by the user.
 - [X] As a user, I can navigate through the next and previous pages of the
       paginated results.
 - [X] As a user, I see the total count of search results.
-- [ ] As a user, I see notable information for each search result,
+- [X] As a user, I see notable information for each search result,
       such as the description, star/follower count, profile pictures, etc.
-- [ ] As a user, I can select a search result and be taken to the applicable
+- [X] As a user, I can select a search result and be taken to the applicable
       page on github.com API
