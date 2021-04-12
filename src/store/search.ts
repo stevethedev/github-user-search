@@ -3,6 +3,7 @@ import { useSearchCount } from './search-count';
 import { useSearchText } from './search-text';
 import { useSearchUsers } from './search-users';
 import { useToken } from './token';
+import { useFetchUser } from './user';
 import type { Users } from './users';
 import { useUsers } from './users';
 
@@ -14,6 +15,7 @@ export const useSearchSubmit = (): SearchSubmit => {
   const [, setSearchCount] = useSearchCount();
   const [, setUsers] = useUsers();
   const [, setSearchUsers] = useSearchUsers();
+  const fetchUser = useFetchUser();
 
   return async (text, count?: number, offset?: number) => {
     setSearchText(text);
@@ -40,5 +42,10 @@ export const useSearchSubmit = (): SearchSubmit => {
       return acc;
     },
     Object.create(null)));
+
+    // Optimization: pre-load user data
+    results.users.forEach((user) => {
+      void fetchUser(user.login);
+    });
   };
 };
