@@ -1,6 +1,7 @@
 const path = require('path');
 const {DefinePlugin} = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -28,7 +29,9 @@ module.exports = (env, argv) => {
         {
           test: /\.css$/,
           use: [
-            {loader: 'style-loader'},
+            isProduction ? {
+              loader: MiniCssExtractPlugin.loader
+            } : {loader: 'style-loader'},
             {
               loader: "css-loader",
               options: {modules: true}
@@ -48,6 +51,8 @@ module.exports = (env, argv) => {
           : 'GITHUB_AUTH_TOKEN'
       }),
       new HtmlWebpackPlugin(),
-    ]
+    ].concat(isProduction ? [new MiniCssExtractPlugin({
+      filename: 'assets/css/client.css',
+    })] : [])
   };
 };
