@@ -2,6 +2,7 @@
     display: flex;
     margin-top: 1em;
     width: 100%;
+    justify-content: center;
 }
 
 .user-page__user-info {
@@ -13,10 +14,12 @@
     display: flex;
     flex-direction: column;
     margin-left: 2em;
+    max-width: 56em;
 }
 
 .user-page__user-button {
     margin-top: 1em;
+    font-size: var(--text-small);
 }
 
 .user-page__user-interactions {

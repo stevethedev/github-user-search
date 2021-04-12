@@ -10,7 +10,7 @@ interface Params {
 export const FollowerCount = ({ followers }: Params): JSX.Element => (
   followers ? (
     <span className={styles['user-follower-count']}>
-      {followers.totalCount}
+      {followers.totalCount.toLocaleString()}
       {' '}
       followers
     </span>

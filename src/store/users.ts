@@ -1,4 +1,3 @@
-import merge from 'lodash/merge';
 import { useDispatch, useSelector } from 'react-redux';
 import type { Action } from 'redux';
 import type { ReadonlyDeep } from 'type-fest';
@@ -27,7 +26,7 @@ const mergeUser = (
   extend: ReadonlyDeep<User> | undefined,
 ): ReadonlyDeep<User> | undefined => (
   extend
-    ? merge({}, base, extend)
+    ? { ...base, ...extend }
     : undefined
 );
 

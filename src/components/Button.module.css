@@ -6,7 +6,8 @@
     --button-line-height: 1.25em;
     --button-min-width: 1em;
 
-    display: block;
+    display: flex;
+    justify-content: center;
     font-style: normal;
     text-align: center;
     white-space: nowrap;

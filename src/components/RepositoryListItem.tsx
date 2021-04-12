@@ -29,12 +29,12 @@ export const RepositoryListItem = ({ repository }: Props): JSX.Element => (
           <Language key={language.name} language={language} />))}
       </span>
       <span className={styles['repository-list-item__stargazers']}>
-        {repository.stargazerCount}
+        {repository.stargazerCount.toLocaleString()}
         {' '}
         stargazers
       </span>
       <span className={styles['repository-list-item__forks']}>
-        {repository.forkCount}
+        {repository.forkCount.toLocaleString()}
         {' '}
         forks
       </span>

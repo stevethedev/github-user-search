@@ -103,7 +103,7 @@ const READ_QUERY = `
             name
             description
             url
-            languages(orderBy: {field: SIZE, direction: DESC}, first: 1) {
+            languages(orderBy: {direction: DESC, field: SIZE}, first: 1) {
               nodes {
                 color
                 id

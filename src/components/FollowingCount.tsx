@@ -10,7 +10,7 @@ interface Params {
 export const FollowingCount = ({ following }: Params): JSX.Element => (
   following ? (
     <span className={styles['user-following-count']}>
-      {following.totalCount}
+      {following.totalCount.toLocaleString()}
       {' '}
       following
     </span>

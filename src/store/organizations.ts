@@ -27,7 +27,7 @@ const mergeOrganization = (
   extend: ReadonlyDeep<Organization> | undefined,
 ): ReadonlyDeep<Organization> | undefined => (
   extend
-    ? merge({}, base, extend)
+    ? { ...base, ...extend }
     : undefined
 );
 

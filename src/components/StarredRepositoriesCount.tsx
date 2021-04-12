@@ -10,7 +10,7 @@ interface Params {
 export const StarredRepositoriesCount = ({ repositories }: Params): JSX.Element => (
   repositories ? (
     <span className={styles['starred-repositories-count']}>
-      {repositories.totalCount}
+      {repositories.totalCount.toLocaleString()}
       {' '}
       stars
     </span>
