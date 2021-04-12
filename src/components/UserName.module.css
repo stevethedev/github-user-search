@@ -1,0 +1,14 @@
+.user-name--link {
+    color: var(--color-blue);
+}
+
+.user-name--link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.user-name__first-name {
+    font-weight: 600;
+}
+
+.user-name__rest-name {}

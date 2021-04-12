@@ -1,0 +1,49 @@
+.user-page {
+    display: flex;
+    margin-top: 1em;
+    width: 100%;
+}
+
+.user-page__user-info {
+    flex: 0;
+}
+
+.user-page__user-data {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+}
+
+.user-page__user-button {
+    margin-top: 1em;
+}
+
+.user-page__user-interactions {
+    margin-top: 1em;
+    font-size: var(--text-x-small);
+}
+
+.user-page__user-contact {
+    font-size: var(--text-small);
+    margin-top: 1em;
+    line-height: 1.5;
+}
+
+.user-page__user-organization {
+    border-top: 1px solid var(--color-subtle-border);
+    padding-top: 1em;
+    margin-top: 1em;
+}
+
+.user-page__user-message {
+    display: flex;
+    margin-bottom: 1em;
+    line-height: 2;
+    border: 1px solid var(--color-gray);
+    border-radius: 0.35em;
+    padding: 0.4em 1em;
+    background-color: var(--color-lighten);
+    font-size: var(--text-large);
+    justify-content: center;
+}

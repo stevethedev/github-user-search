@@ -23,6 +23,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/consistent-type-imports': ['error'],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
     'prettier/prettier': 'off',

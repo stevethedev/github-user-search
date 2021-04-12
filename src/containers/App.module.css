@@ -5,14 +5,20 @@
     --color-blue: rgb(31, 111, 235);
     --color-lighten: rgba(255, 255, 255, 0.03);
     --color-subtle-border: rgb(33, 38, 45);
+    --color-dark-gray: rgb(34, 39, 46);
+    --color-gray: rgb(48, 54, 61);
 
     --font-sans-serif: BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
 
     --text-x-small: 0.75em;
     --text-small: 0.875em;
     --text-normal: 1em;
+    --text-large: 1.25em;
+    --text-x-large: 1.625em;
 
     --page-width: 44em;
+
+    --avatar-size: 17.5em;
 }
 
 .app {

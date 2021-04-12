@@ -1,6 +1,8 @@
-import { isArray } from '../util/types';
-import { CURSOR_ZERO, decode, encode } from './github-cursor';
-import { request, RequestParameters, Token } from './request';
+import { isArray } from '../../util/types';
+import { CURSOR_ZERO, decode, encode } from '../github-cursor';
+import type { RequestParameters, Token } from '../request';
+import { request } from '../request';
+import type { User } from './type';
 
 interface UserSearchParams extends RequestParameters {
   text: string;
@@ -14,14 +16,15 @@ interface UserSearchResult {
   count: number;
 }
 
-/**
- * Retrieves user information from the server.
- * @param token
- * @param params
- */
-export const search = async (token: Token, params: UserSearchParams):
-  Promise<UserSearchResult | null> => {
-  const query = `
+interface SearchResults {
+  search: {
+    userCount: number
+    pageInfo: { startCursor: string; endCursor: string };
+    users: User[];
+  }
+}
+
+const SEARCH_QUERY = `
   query searchUsers($text: String!, $first: Int = 10, $after: String = "${CURSOR_ZERO}") {
     search(query:$text, type:USER, first:$first, after:$after) {
       userCount
@@ -44,13 +47,18 @@ export const search = async (token: Token, params: UserSearchParams):
     }
   }`;
 
-  const queryParams = {
+/**
+ * Retrieves user information from the server.
+ * @param token
+ * @param params
+ */
+export const search = async (token: Token, params: UserSearchParams):
+  Promise<UserSearchResult | null> => {
+  const result = await request(token, SEARCH_QUERY, {
     text: params.text,
     after: encode(params.offset),
     first: params.count,
-  };
-
-  const result = await request(token, query, queryParams);
+  });
 
   const searchData = (result as SearchResults | null)?.search;
   if (!searchData || !isArray(searchData.users)) {
@@ -65,22 +73,3 @@ export const search = async (token: Token, params: UserSearchParams):
 
   return { users, cursor, count };
 };
-
-interface SearchResults {
-  search: {
-    userCount: number
-    pageInfo: { startCursor: string; endCursor: string };
-    users: User[];
-  }
-}
-
-export interface User {
-  avatarUrl: string;
-  bio: string;
-  company: string;
-  email: string;
-  id: string;
-  location: string;
-  login: string;
-  name: string | null;
-}

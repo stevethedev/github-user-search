@@ -1,0 +1,5 @@
+.user-avatar {
+    height: var(--avatar-size);
+    width: var(--avatar-size);
+    border-radius: calc(var(--avatar-size) / 2);
+}

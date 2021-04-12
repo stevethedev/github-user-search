@@ -1,28 +1,38 @@
+import merge from 'lodash/merge';
 import { useDispatch, useSelector } from 'react-redux';
-import { Action } from 'redux';
-import { User } from '../api/user';
+import type { Action } from 'redux';
+import type { ReadonlyDeep } from 'type-fest';
+import type { User } from '../api/user/type';
+import type { State, StateAccessors } from './state';
 import {
-  action, addReducer, addState, isAction, State, StateAccessors,
+  action, addReducer, addState, isAction,
 } from './state';
 
-export interface Users {
-  [id: string]: User | undefined;
-}
+export type UserIndex = User['id'];
+export type Users = Record<UserIndex, User | undefined>;
 
 interface UsersState extends State {
-  users: Users;
+  readonly users: ReadonlyDeep<Users>;
 }
 
 interface SetUsersAction extends Action<'SET_USERS'> {
-  users: Users;
+  readonly users: ReadonlyDeep<Users>;
 }
 
-const mergeUser = (base: User | undefined, extend: User | undefined): User | undefined => (
-  extend ? { ...base, ...extend } : undefined
+const mergeUser = (
+  base: ReadonlyDeep<User> | undefined,
+  extend: ReadonlyDeep<User> | undefined,
+): ReadonlyDeep<User> | undefined => (
+  extend
+    ? merge({}, base, extend)
+    : undefined
 );
 
-const mergeUsers = (base: Users, extend: Users): Users => (
-  Object.keys(extend).reduce<Users>((users, id: keyof typeof extend) => {
+const mergeUsers = (
+  base: ReadonlyDeep<Users>,
+  extend: ReadonlyDeep<Users>,
+): ReadonlyDeep<Users> => (
+  Object.keys(extend).reduce((users, id: keyof typeof extend) => {
     const user = extend[id];
     // Save some assignments here by disabling the linter.
     // eslint-disable-next-line no-param-reassign

@@ -1,34 +1,50 @@
 import React from 'react';
-import { User } from '../api/user';
+import type { ReadonlyDeep } from 'type-fest';
+import type { User } from '../api/user/type';
+import { Button } from './Button';
 import styles from './SearchResult.module.css';
+import { UserAvatar } from './UserAvatar';
+import { UserBio } from './UserBio';
+import { UserEmail } from './UserEmail';
+import { UserLocation } from './UserLocation';
+import { UserLogin } from './UserLogin';
+import { UserName } from './UserName';
 
 interface Props {
-  user: User;
+  user: ReadonlyDeep<User>;
+  onSelect: (user: ReadonlyDeep<User>) => void;
 }
 
-export const SearchResult = ({ user }: Props): JSX.Element => {
-  const {
-    avatarUrl, login, location, email, bio, name,
-  } = user;
-  const [, firstName, restName] = name?.match(/([^\s]+)(.*)/) ?? [name];
+export const SearchResult = ({ user, onSelect }: Props): JSX.Element => {
+  const onClick = () => onSelect(user);
 
   return (
     <div className={styles['search-result']}>
-      <img
-        className={styles['search-result__user-avatar']}
-        src={avatarUrl}
-        alt={`${login} avatar`}
-      />
+      <UserAvatar user={user} />
       <div className={styles['search-result__text']}>
         <span className={styles['search-result__user-name']}>
-          <span className={styles['search-result__user-first-name']}>{firstName}</span>
-          {' '}
-          <span>{restName}</span>
+          <Button
+            label={<UserName user={user} />}
+            onClick={onClick}
+            borderless
+            link
+            invert
+            inline="flex"
+            color="blue"
+          />
         </span>
-        <span className={styles['search-result__user-login']}>{login}</span>
-        <span className={styles['search-result__user-bio']}>{bio}</span>
-        <span className={styles['search-result__user-location']}>{location}</span>
-        <span className={styles['search-result__user-email']}>{email}</span>
+        <span className={styles['search-result__user-login']}>
+          <UserLogin user={user} />
+        </span>
+        <span className={styles['search-result__user-bio']}>
+          <UserBio user={user} />
+        </span>
+        <span className={styles['search-result__user-location']}>
+          <UserLocation user={user} />
+        </span>
+        <span className={styles['search-result__user-email']}>
+          <UserEmail user={user} />
+        </span>
       </div>
     </div>
   );

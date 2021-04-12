@@ -1,0 +1,6 @@
+.user-organization {}
+
+.user-organization__header {
+    display: block;
+    font-weight: 600;
+}

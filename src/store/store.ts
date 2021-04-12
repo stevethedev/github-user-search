@@ -1,4 +1,6 @@
-import { createStore as createStoreBase, Store } from 'redux';
-import { reducer, State } from './state';
+import type { Store } from 'redux';
+import { createStore as createStoreBase } from 'redux';
+import type { State } from './state';
+import { reducer } from './state';
 
 export const createStore = (): Store<State> => createStoreBase(reducer);

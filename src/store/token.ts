@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
-import { initialize, Token } from '../api/request';
+import type { Token } from '../api/request';
+import { initialize } from '../api/request';
 import type { State } from './state';
 import { addState } from './state';
 

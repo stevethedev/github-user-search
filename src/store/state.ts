@@ -1,4 +1,4 @@
-import { Action } from 'redux';
+import type { Action } from 'redux';
 import type { ReadonlyDeep } from 'type-fest';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -58,4 +58,7 @@ export const isAction = <T extends Action>(a: Action, type: T['type']): a is T =
  */
 export const action = <T extends Action>(a: T): T => a;
 
-export type StateAccessors<T, S extends (t: T) => void = ((t: T) => void)> = [ReadonlyDeep<T>, S];
+export type StateAccessors<
+  T,
+  S extends (t: ReadonlyDeep<T>) => void = ((t: ReadonlyDeep<T>) => void)
+  > = [ReadonlyDeep<T>, S];

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Action } from 'redux';
+import type { Action } from 'redux';
 import type { State, StateAccessors } from './state';
 import {
   action, addReducer, addState, isAction,
@@ -8,6 +8,7 @@ import {
 export enum Page {
   Search,
   Users,
+  User,
 }
 
 interface PageState extends State {
@@ -15,7 +16,7 @@ interface PageState extends State {
 }
 
 interface SetPageAction extends Action<'SET_PAGE'> {
-  page: PageState['page'];
+  page: Page;
 }
 
 addReducer<PageState>((state, a) => {

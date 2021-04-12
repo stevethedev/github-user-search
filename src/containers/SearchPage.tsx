@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { OnSearchHandler, SearchForm } from '../components/SearchForm';
+import type { OnSearchHandler } from '../components/SearchForm';
+import { SearchForm } from '../components/SearchForm';
 import { Page, usePage } from '../store/pages';
 import { useSearchSubmit } from '../store/search';
 import { useSearchText } from '../store/search-text';

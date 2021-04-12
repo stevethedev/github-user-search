@@ -1,2 +1,9 @@
 .results-page {
+    width: var(--page-width);
+}
+
+.results-page__user-count {
+    margin-bottom: 1em;
+    font-size: var(--text-large);
+    font-weight: 600;
 }

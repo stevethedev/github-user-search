@@ -1,0 +1,21 @@
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info__avatar {}
+
+.user-info__name {
+    margin-top: 0.5em;
+    font-size: var(--text-x-large);
+}
+
+.user-info__login {
+    font-size: var(--text-large);
+    font-weight: 300;
+    line-height: 1;
+}
+
+.user-info__bio {
+    margin-top: 0.75em;
+}

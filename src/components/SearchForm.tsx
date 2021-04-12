@@ -1,4 +1,5 @@
-import React, { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
+import type { ChangeEventHandler, KeyboardEventHandler } from 'react';
+import React, { useState } from 'react';
 import styles from './SearchForm.module.css';
 
 export type OnSearchHandler = (text: string) => void;
@@ -35,7 +36,5 @@ export const SearchForm = (
 };
 
 SearchForm.defaultProps = {
-  onSubmit: () => void 0,
-  onChange: () => void 0,
   value: '',
 };

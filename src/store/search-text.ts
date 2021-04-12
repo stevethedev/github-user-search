@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Action } from 'redux';
+import type { Action } from 'redux';
 import type { State, StateAccessors } from './state';
 import {
   action, addReducer, addState, isAction,

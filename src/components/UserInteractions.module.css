@@ -1,0 +1,19 @@
+.user-interactions {
+    display: block;
+}
+
+.user-interactions__interaction {
+    flex: 1;
+    align-content: center;
+}
+
+.user-interactions__interaction::before {
+    content: '\00B7';
+    width: 1em;
+    display: inline-block;
+    text-align: center;
+}
+
+.user-interactions__interaction:first-of-type::before {
+    display: none;
+}

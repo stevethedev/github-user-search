@@ -36,14 +36,14 @@ export const Pagination = ({
 
   return (
     <section className={styles.pagination}>
-      <Button label="Previous" before="<" onClick={() => onSelected(current - 1)} disabled={current <= 1} inline />
+      <Button label="Previous" before="<" onClick={() => onSelected(current - 1)} disabled={current <= 1} inline="block" />
       {buttonRange.reduce<JSX.Element[]>(
         (acc, page, i, arr) => {
           acc.push(<Button
             key={page}
             label={`${page}`}
             onClick={() => onSelected(page)}
-            inline
+            inline="block"
             color={page === current ? 'blue' : null}
           />);
           if (i !== arr.length - 1 && page !== arr[i + 1] - 1) {
@@ -53,7 +53,7 @@ export const Pagination = ({
         },
         [],
       )}
-      <Button label="Next" after=">" onClick={() => onSelected(current + 1)} disabled={current >= end - 1} inline />
+      <Button label="Next" after=">" onClick={() => onSelected(current + 1)} disabled={current >= end - 1} inline="block" />
     </section>
   );
 };
