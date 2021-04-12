@@ -21,8 +21,8 @@ npm run start
 
 ### Optimization Decisions
 
-1. This project does some pre-loading of user data to reduce some apparent-lag when
-   navigating user-content.
+1. This project previously did some pre-loading of user data to reduce some lag when
+   navigating content. This has been pulled out because GitHub registers it as abuse.
 
 ## Security Note
 

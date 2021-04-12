@@ -44,8 +44,8 @@ export const useSearchSubmit = (): SearchSubmit => {
     Object.create(null)));
 
     // Optimization: pre-load user data
-    results.users.forEach((user) => {
-      void fetchUser(user.login);
-    });
+    // results.users.forEach((user) => {
+    //   void fetchUser(user.login);
+    // });
   };
 };
