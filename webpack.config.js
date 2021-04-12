@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
 
+  console.log(isProduction ? "PRODUCTION BUILD" : 'DEVELOPMENT BUILD');
+
   return {
     devtool: !isProduction && 'cheap-module-source-map',
     mode: isProduction ? 'production' : 'development',

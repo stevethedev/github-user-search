@@ -7,6 +7,8 @@
   "scripts": {
     "build": "npx webpack --config ./webpack.config.js",
     "build:watch": "npm run build -- --watch",
+    "build:prod": "npm run build -- --mode=production",
+    "build:watch:prod": "npm run build -- --watch --mode=production",
     "run": "npx http-server ./dist",
     "lint": "npx eslint",
     "lint:fix": "npx eslint --fix",
