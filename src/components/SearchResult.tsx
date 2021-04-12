@@ -29,7 +29,7 @@ export const SearchResult = ({ user, onSelect }: Props): JSX.Element => {
             borderless
             link
             invert
-            inline="flex"
+            inline="text"
             color="blue"
           />
         </span>

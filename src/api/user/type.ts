@@ -29,11 +29,3 @@ export interface User {
     ids: string[]
   }
 }
-
-interface Organization {
-  id: string;
-}
-
-interface Repository {
-  id: string;
-}

@@ -1,12 +1,32 @@
 import React from 'react';
+import type { ReadonlyDeep } from 'type-fest';
+import type { Repository } from '../api/repository/type';
+import type { User } from '../api/user/type';
 import { Button } from '../components/Button';
+import { RepositoryList } from '../components/RepositoryList';
 import { UserContact } from '../components/UserContact';
 import { UserInfo } from '../components/UserInfo';
 import { UserInteractions } from '../components/UserInteractions';
 import { UserMessage } from '../components/UserMessage';
 import { UserOrganization } from '../components/UserOrganization';
+import type { RepositoryIndex } from '../store/repositories';
+import { useRepositories } from '../store/repositories';
 import { useUser } from '../store/user';
 import styles from './UserPage.module.css';
+
+const getPinnable = (
+  { pinnedItems, pinnableItems }: ReadonlyDeep<User>,
+): null | { title: string, content: Readonly<RepositoryIndex[]> } => {
+  if (pinnedItems?.ids.length) {
+    return { title: 'Pinned Content', content: pinnedItems.ids };
+  }
+
+  if (pinnableItems?.ids.length) {
+    return { title: 'Pinnable Content', content: pinnableItems.ids };
+  }
+
+  return null;
+};
 
 export const UserPage = (): JSX.Element => {
   const [user] = useUser();
@@ -14,6 +34,10 @@ export const UserPage = (): JSX.Element => {
   if (!user) {
     return (<article>No User Selected</article>);
   }
+
+  const [repositories] = useRepositories();
+
+  const pins = getPinnable(user);
 
   return (
     <article className={styles['user-page']}>
@@ -36,22 +60,18 @@ export const UserPage = (): JSX.Element => {
         <span className={styles['user-page__user-message']} style={{ display: user.status ? '' : 'none' }}>
           <UserMessage user={user} />
         </span>
-        <div>
-          <span>
-            {user.pinnedItems?.totalCount}
-            {' '}
-            Pinned Items
-          </span>
-          {/* <div>{user.pinnedItems?.ids}</div> */}
-        </div>
-        <div>
-          <span>
-            {user.pinnableItems?.totalCount}
-            {' '}
-            Pinnable Items
-          </span>
-          {/* <div>{user.pinnableItems?.ids}</div> */}
-        </div>
+        {pins ? (
+          <div>
+            <span>{pins.title}</span>
+            <div className={styles['user-page__repository-list']}>
+              <RepositoryList
+                repositories={(pins.content.map(
+                  (id) => repositories[id],
+                ) ?? []).filter((n) => n) as Repository[]}
+              />
+            </div>
+          </div>
+        ) : '' }
       </section>
     </article>
   );

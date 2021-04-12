@@ -47,3 +47,7 @@
     font-size: var(--text-large);
     justify-content: center;
 }
+
+.user-page__repository-list {
+    font-size: var(--text-x-small)
+}

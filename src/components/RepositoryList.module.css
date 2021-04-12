@@ -1,0 +1,8 @@
+.repository-list {
+    display: grid;
+    column-gap: 1em;
+    grid-template-columns: calc(50% - 0.5em) auto;
+    list-style: none;
+    padding: 0;
+    row-gap: 1em;
+}

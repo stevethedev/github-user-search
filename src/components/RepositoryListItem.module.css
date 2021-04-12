@@ -1,0 +1,21 @@
+.repository-list-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-gray);
+    padding: 1em;
+    border-radius: 0.385em;
+}
+
+.repository-list-item__name {
+    margin-bottom: 0.5em;
+}
+
+.repository-list-item__description {
+    margin-bottom: 1em;
+}
+
+.repository-list-item__languages,
+.repository-list-item__stargazers,
+.repository-list-item__forks {
+    margin-right: 1em;
+}

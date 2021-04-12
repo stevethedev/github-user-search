@@ -2,6 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { Action } from 'redux';
 import { read } from '../api/user/read';
 import type { User } from '../api/user/type';
+import type { Organizations } from './organizations';
+import { useOrganizations } from './organizations';
+import type { Repositories } from './repositories';
+import { useRepositories } from './repositories';
 import type { State, StateAccessors } from './state';
 import {
   action, addReducer, addState, isAction,
@@ -46,6 +50,8 @@ export const useFetchUser = (): FetchUser => {
   const [token] = useToken();
   const [, setUsers] = useUsers();
   const [, setUser] = useUser();
+  const [, setRepositories] = useRepositories();
+  const [, setOrganizations] = useOrganizations();
 
   return async (login: string | null) => {
     if (!login) {
@@ -59,8 +65,17 @@ export const useFetchUser = (): FetchUser => {
       return;
     }
 
-    const { user } = results;
+    const { organizations, repositories, user } = results;
 
     setUsers({ [user.id]: user });
+
+    setRepositories(repositories.reduce<Repositories>((acc, repo) => {
+      acc[repo.id] = repo;
+      return acc;
+    }, {}));
+    setOrganizations(organizations.reduce<Organizations>((acc, organization) => {
+      acc[organization.id] = organization;
+      return acc;
+    }, {}));
   };
 };

@@ -1,3 +1,5 @@
+import type { Organization } from '../organization/type';
+import type { Repository } from '../repository/type';
 import type { RequestParameters, Token } from '../request';
 import { request } from '../request';
 import type { User } from './type';
@@ -34,33 +36,27 @@ interface UserResponse {
   status: { message: string; };
   pinnedItems: {
     totalCount: number;
-    repositories: Repository[];
+    repositories: RawRepository[];
   }
   pinnableItems: {
     totalCount: number;
-    repositories: Repository[]
+    repositories: RawRepository[]
   }
 }
 
-interface Organization {
-  avatarUrl: string;
-  name: string;
-  websiteUrl: string;
-  id: string;
-  login: string;
-}
-
-interface Repository {
+interface RawRepository {
   id: string;
   name: string;
   description: string;
   url: string;
-  languages: {
-    nodes: {
+  forkCount: number;
+  resourcePath?: string;
+  languages?: {
+    nodes?: {
       color: string;
       id: string;
       name: string;
-    }
+    }[]
   }
   stargazerCount: number;
 }
@@ -99,7 +95,7 @@ const READ_QUERY = `
       status {
         message
       }
-      pinnedItems(first: 10) {
+      pinnedItems(first: 10, types: REPOSITORY) {
         totalCount
         repositories: nodes {
           ... on Repository {
@@ -107,7 +103,7 @@ const READ_QUERY = `
             name
             description
             url
-            languages(first: 1) {
+            languages(orderBy: {field: SIZE, direction: DESC}, first: 1) {
               nodes {
                 color
                 id
@@ -115,10 +111,12 @@ const READ_QUERY = `
               }
             }
             stargazerCount
+            forkCount
+            resourcePath
           }
         }
       }
-      pinnableItems(first: 10) {
+      pinnableItems(first: 10, types: REPOSITORY) {
         totalCount
         repositories: nodes {
           ... on Repository {
@@ -134,6 +132,8 @@ const READ_QUERY = `
               }
             }
             stargazerCount
+            forkCount
+            resourcePath
           }
         }
       }
@@ -175,6 +175,15 @@ export const read = async (token: Token, params: UserReadParams):
   return {
     user: user ? parseUser(user) : null,
     organizations: [],
-    repositories: [],
+    repositories: user
+      ? [
+        ...user.pinnedItems.repositories,
+        ...user.pinnableItems.repositories,
+      ].map<Repository>(({ languages, resourcePath, ...rest }) => ({
+        ...rest,
+        resourcePath: resourcePath?.substr(1) ?? rest.name,
+        languages: languages?.nodes ?? [],
+      }))
+      : [],
   };
 };

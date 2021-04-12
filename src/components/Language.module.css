@@ -1,0 +1,15 @@
+.language {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.language__color {
+    height:1em;
+    width:1em;
+    border-radius: 0.5em;
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+.language__text {}

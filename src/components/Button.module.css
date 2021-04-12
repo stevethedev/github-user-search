@@ -56,7 +56,9 @@
     --button-line-height: inherit;
     --button-min-width: inherit;
 
+    line-height: inherit;
     display: inline;
+    vertical-align: inherit;
 }
 
 .button--blue {
