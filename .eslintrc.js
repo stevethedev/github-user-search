@@ -23,6 +23,8 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'no-bitwise': 'off',
+    'no-plusplus': 'off',
     '@typescript-eslint/consistent-type-imports': ['error'],
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
