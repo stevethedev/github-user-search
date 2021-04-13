@@ -1,4 +1,4 @@
-import { search } from '../api/user/search';
+import { search } from '../../api/user/search';
 import { useSearchCount } from './search-count';
 import { useSearchText } from './search-text';
 import { useSearchUsers } from './search-users';

@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { Action } from 'redux';
-import type { User } from '../api/user/type';
-import { isObject } from '../util/types';
-import type { State, StateAccessors } from './state';
+import type { User } from '../../api/user/type';
+import { isObject } from '../../util/types';
+import type { State, StateAccessors } from '../state';
 import {
   action, addReducer, addState, isAction,
-} from './state';
+} from '../state';
 import { useUsers } from './users';
 
 export type SearchUsers = ReadonlyArray<User['id']>;

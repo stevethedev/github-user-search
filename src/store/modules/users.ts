@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { Action } from 'redux';
 import type { ReadonlyDeep } from 'type-fest';
-import type { User } from '../api/user/type';
-import type { State, StateAccessors } from './state';
+import type { User } from '../../api/user/type';
+import type { State, StateAccessors } from '../state';
 import {
   action, addReducer, addState, isAction,
-} from './state';
+} from '../state';
 
 export type UserIndex = User['id'];
 export type Users = Record<UserIndex, User | undefined>;

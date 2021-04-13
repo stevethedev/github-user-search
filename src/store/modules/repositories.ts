@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { Action } from 'redux';
 import type { ReadonlyDeep } from 'type-fest';
-import type { Repository } from '../api/repository/type';
-import type { State, StateAccessors } from './state';
+import type { Repository } from '../../api/repository/type';
+import type { State, StateAccessors } from '../state';
 import {
   action, addReducer, addState, isAction,
-} from './state';
+} from '../state';
 
 const REPOSITORIES: unique symbol = Symbol('REPOSITORIES');
 
