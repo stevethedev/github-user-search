@@ -31,6 +31,7 @@
     "@teamsupercell/typings-for-css-modules-loader": "^2.5.1",
     "@types/jest": "^26.0.22",
     "@types/lodash": "^4.14.168",
+    "@types/mini-css-extract-plugin": "^1.4.1",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/webpack": "^5.28.0",

@@ -1,13 +1,11 @@
-const path = require('path');
-const {DefinePlugin} = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import {DefinePlugin} from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import {encode} from './src/util/key-codec';
+import type webpack from 'webpack';
 
-module.exports = (env: NodeJS.ProcessEnv, argv: Record<string, string>) => {
+module.exports = (env: NodeJS.ProcessEnv, argv: Record<string, string>): webpack.Configuration => {
   const isProduction = argv.mode === 'production';
 
   console.log(isProduction ? "PRODUCTION BUILD" : 'DEVELOPMENT BUILD');
@@ -15,6 +13,19 @@ module.exports = (env: NodeJS.ProcessEnv, argv: Record<string, string>) => {
   global.btoa = function (str) {
     return Buffer.from(str, 'binary').toString('base64');
   };
+
+  const plugins: webpack.Configuration['plugins'] = [
+    new DefinePlugin({
+      GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN
+        ? JSON.stringify(encode(process.env.GITHUB_AUTH_TOKEN))
+        : 'GITHUB_AUTH_TOKEN'
+    }),
+    new HtmlWebpackPlugin(),
+  ];
+
+  if (isProduction) {
+    plugins.push(new MiniCssExtractPlugin({filename: 'assets/css/client.css'}));
+  }
 
   return {
     devtool: !isProduction && 'cheap-module-source-map',
@@ -52,15 +63,6 @@ module.exports = (env: NodeJS.ProcessEnv, argv: Record<string, string>) => {
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.css'],
     },
-    plugins: [
-      new DefinePlugin({
-        GITHUB_AUTH_TOKEN: process.env.GITHUB_AUTH_TOKEN
-          ? JSON.stringify(encode(process.env.GITHUB_AUTH_TOKEN))
-          : 'GITHUB_AUTH_TOKEN'
-      }),
-      new HtmlWebpackPlugin(),
-    ].concat(isProduction ? [new MiniCssExtractPlugin({
-      filename: 'assets/css/client.css',
-    })] : [])
+    plugins
   };
 };
