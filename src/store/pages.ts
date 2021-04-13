@@ -5,8 +5,7 @@ import {
   action, addReducer, addState, isAction,
 } from './state';
 
-const SET_PAGE: unique symbol = Symbol('SET_PAGE');
-type SET_PAGE = typeof SET_PAGE;
+const PAGES: unique symbol = Symbol('PAGES');
 
 export enum Page {
   Search,
@@ -15,32 +14,32 @@ export enum Page {
 }
 
 interface PageState extends State {
-  readonly page: Page;
+  readonly [PAGES]: Page;
 }
 
-interface SetPageAction extends Action<SET_PAGE> {
-  page: Page;
+interface SetPageAction extends Action<typeof PAGES> {
+  readonly [PAGES]: Page;
 }
 
 addReducer<PageState>((state, a) => {
-  if (isAction<SetPageAction>(a, SET_PAGE)) {
-    return { ...state, page: a.page };
+  if (isAction<SetPageAction>(a, PAGES)) {
+    return { ...state, [PAGES]: a[PAGES] };
   }
   return state;
 });
 
 addState<PageState>((state) => ({
   ...state,
-  page: Page.Search,
+  [PAGES]: Page.Search,
 }));
 
 /**
  * Retrieves the currently selected page-value from the store.
  */
-export const usePage = (): StateAccessors<PageState['page']> => {
+export const usePage = (): StateAccessors<PageState[typeof PAGES]> => {
   const dispatch = useDispatch();
   return [
-    useSelector((state: PageState) => state.page),
-    (page) => dispatch(action<SetPageAction>({ type: SET_PAGE, page })),
+    useSelector((state: PageState) => state[PAGES]),
+    (page) => dispatch(action<SetPageAction>({ type: PAGES, [PAGES]: page })),
   ];
 };

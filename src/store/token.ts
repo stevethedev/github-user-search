@@ -7,16 +7,18 @@ import { decode } from '../util/key-codec';
 
 declare const GITHUB_AUTH_TOKEN: string;
 
+const TOKEN: unique symbol = Symbol('TOKEN');
+
 interface TokenState extends State {
-  readonly token: Token;
+  readonly [TOKEN]: Token;
 }
 
 addState<TokenState>((state) => ({
   ...state,
-  token: initialize(decode(GITHUB_AUTH_TOKEN)),
+  [TOKEN]: initialize(decode(GITHUB_AUTH_TOKEN)),
 }));
 
 /**
  * Retrieve the token value from the store.
  */
-export const useToken = (): [Token] => [useSelector((state: TokenState) => state.token)];
+export const useToken = (): [Token] => [useSelector((state: TokenState) => state[TOKEN])];

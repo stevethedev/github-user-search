@@ -7,18 +7,17 @@ import {
   action, addReducer, addState, isAction,
 } from './state';
 
-const SET_REPOSITORIES: unique symbol = Symbol('SET_REPOSITORIES');
-type SET_REPOSITORIES = typeof SET_REPOSITORIES;
+const REPOSITORIES: unique symbol = Symbol('REPOSITORIES');
 
 export type RepositoryIndex = Repository['id'];
 export type Repositories = Record<RepositoryIndex, Repository | undefined>;
 
 interface RepositoriesState extends State {
-  readonly repositories: ReadonlyDeep<Repositories>;
+  readonly [REPOSITORIES]: ReadonlyDeep<Repositories>;
 }
 
-interface SetRepositoriesAction extends Action<SET_REPOSITORIES> {
-  readonly repositories: ReadonlyDeep<Repositories>;
+interface SetRepositoriesAction extends Action<typeof REPOSITORIES> {
+  readonly [REPOSITORIES]: ReadonlyDeep<Repositories>;
 }
 
 const mergeRepository = (
@@ -43,13 +42,13 @@ const mergeRepositories = (
   }, { ...base })
 );
 
-addState<RepositoriesState>((state) => ({ ...state, repositories: Object.create(null) }));
+addState<RepositoriesState>((state) => ({ ...state, [REPOSITORIES]: Object.create(null) }));
 
 addReducer<RepositoriesState>((state, a) => {
-  if (isAction<SetRepositoriesAction>(a, SET_REPOSITORIES)) {
+  if (isAction<SetRepositoriesAction>(a, REPOSITORIES)) {
     return {
       ...state,
-      repositories: mergeRepositories(state.repositories, a.repositories),
+      [REPOSITORIES]: mergeRepositories(state[REPOSITORIES], a[REPOSITORIES]),
     };
   }
 
@@ -62,9 +61,9 @@ addReducer<RepositoriesState>((state, a) => {
 export const useRepositories = (): StateAccessors<Repositories> => {
   const dispatch = useDispatch();
   return [
-    useSelector((state: RepositoriesState) => state.repositories),
+    useSelector((state: RepositoriesState) => state[REPOSITORIES]),
     (repositories) => dispatch(
-      action<SetRepositoriesAction>({ type: SET_REPOSITORIES, repositories }),
+      action<SetRepositoriesAction>({ type: REPOSITORIES, [REPOSITORIES]: repositories }),
     ),
   ];
 };

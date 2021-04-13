@@ -7,18 +7,17 @@ import {
   action, addReducer, addState, isAction,
 } from './state';
 
-const SET_ORGANIZATIONS: unique symbol = Symbol('SET_ORGANIZATIONS');
-type SET_ORGANIZATIONS = typeof SET_ORGANIZATIONS;
+const ORGANIZATIONS: unique symbol = Symbol('ORGANIZATIONS');
 
 export type OrganizationIndex = Organization['id'];
 export type Organizations = Record<OrganizationIndex, Organization | undefined>;
 
 interface OrganizationsState extends State {
-  readonly organizations: ReadonlyDeep<Organizations>;
+  readonly [ORGANIZATIONS]: ReadonlyDeep<Organizations>;
 }
 
-interface SetOrganizationsAction extends Action<SET_ORGANIZATIONS> {
-  readonly organizations: ReadonlyDeep<Organizations>;
+interface SetOrganizationsAction extends Action<typeof ORGANIZATIONS> {
+  readonly [ORGANIZATIONS]: ReadonlyDeep<Organizations>;
 }
 
 const mergeOrganization = (
@@ -43,13 +42,13 @@ const mergeOrganizations = (
   }, { ...base })
 );
 
-addState<OrganizationsState>((state) => ({ ...state, organizations: Object.create(null) }));
+addState<OrganizationsState>((state) => ({ ...state, [ORGANIZATIONS]: Object.create(null) }));
 
 addReducer<OrganizationsState>((state, a) => {
-  if (isAction<SetOrganizationsAction>(a, SET_ORGANIZATIONS)) {
+  if (isAction<SetOrganizationsAction>(a, ORGANIZATIONS)) {
     return {
       ...state,
-      organizations: mergeOrganizations(state.organizations, a.organizations),
+      [ORGANIZATIONS]: mergeOrganizations(state[ORGANIZATIONS], a[ORGANIZATIONS]),
     };
   }
 
@@ -62,13 +61,13 @@ addReducer<OrganizationsState>((state, a) => {
 export const useOrganizations = (): StateAccessors<Organizations> => {
   const dispatch = useDispatch();
   return [
-    useSelector((state: OrganizationsState) => state.organizations),
+    useSelector((state: OrganizationsState) => state[ORGANIZATIONS]),
     (organizations) => dispatch(
-      action<SetOrganizationsAction>({ type: SET_ORGANIZATIONS, organizations }),
+      action<SetOrganizationsAction>({ type: ORGANIZATIONS, [ORGANIZATIONS]: organizations }),
     ),
   ];
 };
 
 export const useOrganization = (id: OrganizationIndex): ReadonlyDeep<Organization> | null => (
-  useSelector(({ organizations }: OrganizationsState) => organizations[id]) ?? null
+  useSelector(({ [ORGANIZATIONS]: organizations }: OrganizationsState) => organizations[id]) ?? null
 );

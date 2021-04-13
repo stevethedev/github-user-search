@@ -10,22 +10,21 @@ import { useUsers } from './users';
 
 export type SearchUsers = ReadonlyArray<User['id']>;
 
-const SET_SEARCH_USERS: unique symbol = Symbol('SET_SEARCH_USERS');
-type SET_SEARCH_USERS = typeof SET_SEARCH_USERS;
+const SEARCH_USERS: unique symbol = Symbol('SEARCH_USERS');
 
 interface SearchUsersState extends State {
-  readonly searchUsers: SearchUsers;
+  readonly [SEARCH_USERS]: SearchUsers;
 }
 
-interface SetSearchUsersStateAction extends Action<SET_SEARCH_USERS> {
-  readonly searchUsers: SearchUsers;
+interface SetSearchUsersStateAction extends Action<typeof SEARCH_USERS> {
+  readonly [SEARCH_USERS]: SearchUsers;
 }
 
-addState<SearchUsersState>((state) => ({ ...state, searchUsers: [] }));
+addState<SearchUsersState>((state) => ({ ...state, [SEARCH_USERS]: [] }));
 
 addReducer<SearchUsersState>((state, a) => {
-  if (isAction<SetSearchUsersStateAction>(a, SET_SEARCH_USERS)) {
-    return { ...state, searchUsers: a.searchUsers };
+  if (isAction<SetSearchUsersStateAction>(a, SEARCH_USERS)) {
+    return { ...state, [SEARCH_USERS]: a[SEARCH_USERS] };
   }
   return state;
 });
@@ -35,7 +34,7 @@ export const useSearchUsers = (): StateAccessors<User[]> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: SearchUsersState) => (
-      state.searchUsers.map((id) => users[id]).filter(isObject) as User[])),
+      state[SEARCH_USERS].map((id) => users[id]).filter(isObject) as User[])),
     (userIds) => {
       const searchUsers = userIds.reduce<User['id'][]>((acc, user) => {
         const id = user?.id;
@@ -45,8 +44,8 @@ export const useSearchUsers = (): StateAccessors<User[]> => {
         return acc;
       }, []);
       return dispatch(action<SetSearchUsersStateAction>({
-        type: SET_SEARCH_USERS,
-        searchUsers,
+        type: SEARCH_USERS,
+        [SEARCH_USERS]: searchUsers,
       }));
     },
   ];

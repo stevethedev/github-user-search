@@ -7,25 +7,24 @@ import {
 
 export type SearchText = string | null;
 
-const SET_SEARCH_TEXT: unique symbol = Symbol('SET_SEARCH_TEXT');
-type SET_SEARCH_TEXT = typeof SET_SEARCH_TEXT;
+const SEARCH_TEXT: unique symbol = Symbol('SEARCH_TEXT');
 
 interface SearchTextState extends State {
-  readonly searchText: SearchText;
+  readonly [SEARCH_TEXT]: SearchText;
 }
 
-interface SetSearchTextAction extends Action<SET_SEARCH_TEXT> {
-  searchText: SearchText;
+interface SetSearchTextAction extends Action<typeof SEARCH_TEXT> {
+  readonly [SEARCH_TEXT]: SearchText;
 }
 
 addState<SearchTextState>((state) => ({
   ...state,
-  searchText: null,
+  [SEARCH_TEXT]: null,
 }));
 
 addReducer<SearchTextState>((state, a) => {
-  if (isAction<SetSearchTextAction>(a, SET_SEARCH_TEXT)) {
-    return { ...state, searchText: a.searchText };
+  if (isAction<SetSearchTextAction>(a, SEARCH_TEXT)) {
+    return { ...state, [SEARCH_TEXT]: a[SEARCH_TEXT] };
   }
   return state;
 });
@@ -36,7 +35,9 @@ addReducer<SearchTextState>((state, a) => {
 export const useSearchText = (): StateAccessors<SearchText> => {
   const dispatch = useDispatch();
   return [
-    useSelector((state: SearchTextState) => state.searchText),
-    (searchText) => dispatch(action<SetSearchTextAction>({ type: SET_SEARCH_TEXT, searchText })),
+    useSelector((state: SearchTextState) => state[SEARCH_TEXT]),
+    (searchText) => dispatch(
+      action<SetSearchTextAction>({ type: SEARCH_TEXT, [SEARCH_TEXT]: searchText }),
+    ),
   ];
 };
