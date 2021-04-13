@@ -1,34 +1,33 @@
 import { useDispatch, useSelector } from 'react-redux';
 import type { Action } from 'redux';
-import { read } from '../api/user/read';
-import type { User } from '../api/user/type';
+import { read } from '../../api/user/read';
+import type { User } from '../../api/user/type';
 import type { Organizations } from './organizations';
 import { useOrganizations } from './organizations';
 import type { Repositories } from './repositories';
 import { useRepositories } from './repositories';
-import type { State, StateAccessors } from './state';
+import type { State, StateAccessors } from '../state';
 import {
   action, addReducer, addState, isAction,
-} from './state';
+} from '../state';
 import { useToken } from './token';
 import type { UserIndex } from './users';
 import { useUsers } from './users';
 
+const USER: unique symbol = Symbol('USER');
+
 interface UserState extends State {
-  user: UserIndex | null;
+  readonly [USER]: UserIndex | null;
 }
 
-const SET_USER_STATE: unique symbol = Symbol('SET_USER_STATE');
-type SET_USER_STATE = typeof SET_USER_STATE;
-
-interface SetUserStateAction extends Action<SET_USER_STATE> {
-  user: UserState['user'];
+interface SetUserStateAction extends Action<typeof USER> {
+  readonly [USER]: UserState[typeof USER];
 }
 
-addState<UserState>((state) => ({ ...state, user: null }));
+addState<UserState>((state) => ({ ...state, [USER]: null }));
 addReducer<UserState>((state, a) => {
-  if (isAction<SetUserStateAction>(a, SET_USER_STATE)) {
-    return { ...state, user: a.user };
+  if (isAction<SetUserStateAction>(a, USER)) {
+    return { ...state, [USER]: a[USER] };
   }
   return state;
 });
@@ -37,9 +36,9 @@ export const useUser = (): StateAccessors<User | null> => {
   const dispatch = useDispatch();
   const [users] = useUsers();
   return [
-    useSelector(({ user }: UserState) => users[user ?? ''] ?? null),
+    useSelector(({ [USER]: user }: UserState) => users[user ?? ''] ?? null),
     (user) => dispatch(
-      action<SetUserStateAction>({ type: SET_USER_STATE, user: user?.id ?? null }),
+      action<SetUserStateAction>({ type: USER, [USER]: user?.id ?? null }),
     ),
   ];
 };

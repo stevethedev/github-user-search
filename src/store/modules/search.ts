@@ -1,4 +1,4 @@
-import { search } from '../api/user/search';
+import { search } from '../../api/user/search';
 import { useSearchCount } from './search-count';
 import { useSearchText } from './search-text';
 import { useSearchUsers } from './search-users';
@@ -40,5 +40,10 @@ export const useSearchSubmit = (): SearchSubmit => {
       return acc;
     },
     Object.create(null)));
+
+    // Optimization: pre-load user data
+    // results.users.forEach((user) => {
+    //   void fetchUser(user.login);
+    // });
   };
 };

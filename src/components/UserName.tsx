@@ -9,6 +9,6 @@ interface Props {
 
 export const UserName = ({ user }: Props): JSX.Element => (
   <span className={styles['user-name']}>
-    {user.name}
+    {user.name ?? user.login}
   </span>
 );

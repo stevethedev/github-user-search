@@ -19,6 +19,11 @@ npm run start
 5. Primarily targeting Firefox
 6. Build the auth token into the source, but keep it out of source-control
 
+### Optimization Decisions
+
+1. This project previously did some pre-loading of user data to reduce some lag when
+   navigating content. This has been pulled out because GitHub registers it as abuse.
+
 ## Security Note
 
 This project requires that the search work without requiring end-users to
