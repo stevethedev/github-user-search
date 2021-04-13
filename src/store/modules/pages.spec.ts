@@ -18,7 +18,7 @@ it('automatically registers to the store', () => {
   expect(result.current.page).toEqual(Page.Search);
 });
 
-it('can update the organization values', () => {
+it('can update the page values', () => {
   const { result } = getStore();
   act(() => result.current.setPage(Page.User));
   expect(result.current.page).toEqual(Page.User);

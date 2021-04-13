@@ -62,7 +62,7 @@ export const useRepositories = (): StateAccessors<Repositories> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: RepositoriesState) => state[REPOSITORIES]),
-    (repositories) => dispatch(
+    (repositories) => void dispatch(
       action<SetRepositoriesAction>({ type: REPOSITORIES, [REPOSITORIES]: repositories }),
     ),
   ];
