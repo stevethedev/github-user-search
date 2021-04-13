@@ -36,7 +36,7 @@ export const useSearchCount = (): StateAccessors<SearchCountState[typeof SEARCH_
   const dispatch = useDispatch();
   return [
     useSelector((state: SearchCountState) => state[SEARCH_COUNT]),
-    (searchCount) => dispatch(
+    (searchCount) => void dispatch(
       action<SetSearchCountAction>({ type: SEARCH_COUNT, [SEARCH_COUNT]: searchCount }),
     ),
   ];

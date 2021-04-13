@@ -36,7 +36,7 @@ export const useSearchText = (): StateAccessors<SearchText> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: SearchTextState) => state[SEARCH_TEXT]),
-    (searchText) => dispatch(
+    (searchText) => void dispatch(
       action<SetSearchTextAction>({ type: SEARCH_TEXT, [SEARCH_TEXT]: searchText }),
     ),
   ];

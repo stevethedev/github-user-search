@@ -1,9 +1,9 @@
 import React from 'react';
 import type { OnSearchHandler } from '../components/SearchForm';
 import { SearchForm } from '../components/SearchForm';
-import { Page, usePage } from '../store/modules/pages';
-import { useSearchSubmit } from '../store/modules/search';
-import { useSearchText } from '../store/modules/search-text';
+import { Page, usePage } from '../store/data/pages';
+import { useSearchSubmit } from '../store/activities/search';
+import { useSearchText } from '../store/data/search-text';
 import styles from './SearchPage.module.css';
 
 export const SearchPage = (): JSX.Element => {

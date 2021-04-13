@@ -9,9 +9,9 @@ import { UserInfo } from '../components/UserInfo';
 import { UserInteractions } from '../components/UserInteractions';
 import { UserMessage } from '../components/UserMessage';
 import { UserOrganization } from '../components/UserOrganization';
-import type { RepositoryIndex } from '../store/modules/repositories';
-import { useRepositories } from '../store/modules/repositories';
-import { useUser } from '../store/modules/user';
+import type { RepositoryIndex } from '../store/data/repositories';
+import { useRepositories } from '../store/data/repositories';
+import { useUser } from '../store/data/user';
 import styles from './UserPage.module.css';
 
 const getPinnable = (

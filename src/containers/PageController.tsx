@@ -1,5 +1,5 @@
 import React from 'react';
-import { Page, usePage } from '../store/modules/pages';
+import { Page, usePage } from '../store/data/pages';
 import { PageFooter } from './PageFooter';
 import { SearchPage } from './SearchPage';
 import { UserPage } from './UserPage';

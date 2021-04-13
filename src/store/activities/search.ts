@@ -1,10 +1,10 @@
 import { search } from '../../api/user/search';
-import { useSearchCount } from './search-count';
-import { useSearchText } from './search-text';
-import { useSearchUsers } from './search-users';
-import { useToken } from './token';
-import type { Users } from './users';
-import { useUsers } from './users';
+import { useSearchCount } from '../data/search-count';
+import { useSearchText } from '../data/search-text';
+import { useSearchUsers } from '../data/search-users';
+import { useToken } from '../data/token';
+import type { Users } from '../data/users';
+import { useUsers } from '../data/users';
 
 export type SearchSubmit = (text: string | null, count?: number, offset?: number) => Promise<void>;
 

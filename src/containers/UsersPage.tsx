@@ -3,12 +3,13 @@ import type { ReadonlyDeep } from 'type-fest';
 import type { User } from '../api/user/type';
 import { Pagination } from '../components/Pagination';
 import { SearchResults } from '../components/SearchResults';
-import { Page, usePage } from '../store/modules/pages';
-import { useSearchSubmit } from '../store/modules/search';
-import { useSearchCount } from '../store/modules/search-count';
-import { useSearchText } from '../store/modules/search-text';
-import { useSearchUsers } from '../store/modules/search-users';
-import { useFetchUser, useUser } from '../store/modules/user';
+import { Page, usePage } from '../store/data/pages';
+import { useSearchSubmit } from '../store/activities/search';
+import { useSearchCount } from '../store/data/search-count';
+import { useSearchText } from '../store/data/search-text';
+import { useSearchUsers } from '../store/data/search-users';
+import { useUser } from '../store/data/user';
+import { useFetchUser } from '../store/activities/fetchUser';
 import styles from './UsersPage.module.css';
 
 export const UsersPage = (): JSX.Element => {

@@ -62,6 +62,8 @@ export const useUsers = (): StateAccessors<Users> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: UsersState) => state[USERS]),
-    (users) => dispatch(action<SetUsersAction>({ type: USERS, [USERS]: users })),
+    (users) => void dispatch(
+      action<SetUsersAction>({ type: USERS, [USERS]: users }),
+    ),
   ];
 };

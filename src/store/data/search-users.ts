@@ -43,7 +43,7 @@ export const useSearchUsers = (): StateAccessors<User[]> => {
         }
         return acc;
       }, []);
-      return dispatch(action<SetSearchUsersStateAction>({
+      return void dispatch(action<SetSearchUsersStateAction>({
         type: SEARCH_USERS,
         [SEARCH_USERS]: searchUsers,
       }));

@@ -2,7 +2,7 @@ import React from 'react';
 import type { ReadonlyDeep } from 'type-fest';
 import type { Organization } from '../api/organization/type';
 import type { User } from '../api/user/type';
-import { useOrganizations } from '../store/modules/organizations';
+import { useOrganizations } from '../store/data/organizations';
 import { OrganizationList } from './OrganizationList';
 import styles from './UserOrganization.module.css';
 
