@@ -16,32 +16,32 @@ interface ReadResult {
 
 interface UserResponse {
   id: string;
-  avatarUrl: string;
-  bio: string;
   login: string;
-  followers: { totalCount: number };
-  following: { totalCount: number };
-  starredRepositories: {
-    totalCount: number;
+  avatarUrl?: string;
+  bio?: string;
+  followers?: { totalCount?: number };
+  following?: { totalCount?: number };
+  starredRepositories?: {
+    totalCount?: number;
   };
-  location: string;
-  company: string;
-  url: string;
-  twitterUsername: string;
-  organizations: {
-    totalCount: number;
-    nodes: Organization[];
-  }
-  websiteUrl: string;
-  status: { message: string; };
-  pinnedItems: {
-    totalCount: number;
-    repositories: RawRepository[];
-  }
-  pinnableItems: {
-    totalCount: number;
-    repositories: RawRepository[]
-  }
+  location?: string;
+  company?: string;
+  url?: string;
+  twitterUsername?: string;
+  organizations?: {
+    totalCount?: number;
+    nodes?: Organization[];
+  };
+  websiteUrl?: string;
+  status?: { message?: string; };
+  pinnedItems?: {
+    totalCount?: number;
+    repositories?: RawRepository[];
+  };
+  pinnableItems?: {
+    totalCount?: number;
+    repositories?: RawRepository[]
+  };
 }
 
 interface RawRepository {
@@ -141,21 +141,62 @@ const READ_QUERY = `
   }`;
 
 const parseRepositories = (repositories: UserResponse['pinnableItems']): User['pinnableItems'] => ({
-  totalCount: repositories.totalCount,
-  ids: repositories.repositories.map(({ id }) => id),
+  totalCount: repositories?.totalCount ?? 0,
+  ids: repositories?.repositories?.map(({ id }) => id) ?? [],
 });
 
 const parseOrganizations = (organizations: UserResponse['organizations']): User['organizations'] => ({
-  totalCount: organizations.totalCount,
-  ids: organizations.nodes.map(({ id }) => id),
+  totalCount: organizations?.totalCount ?? 0,
+  ids: organizations?.nodes?.map(({ id }) => id) ?? [],
 });
 
-const parseUser = (user: UserResponse): User => ({
-  ...user,
-  organizations: user?.organizations && parseOrganizations(user.organizations),
-  pinnableItems: user?.pinnableItems && parseRepositories(user.pinnableItems),
-  pinnedItems: user?.pinnedItems && parseRepositories(user.pinnedItems),
-});
+const parseStatus = (status: UserResponse['status']): User['status'] => (
+  status?.message ? { message: status.message } : void 0
+);
+
+const parseFollowing = (following: UserResponse['following']): User['following'] => (
+  !(following?.totalCount) ? void 0 : { totalCount: following.totalCount }
+);
+
+const parseFollowers = (followers: UserResponse['followers']): User['followers'] => (
+  !(followers?.totalCount) ? void 0 : { totalCount: followers.totalCount }
+);
+
+const parseStarredRepositories = (starred: UserResponse['starredRepositories']): User['starredRepositories'] => (
+  !(starred?.totalCount) ? void 0 : { totalCount: starred.totalCount }
+);
+
+const parseUser = (user: UserResponse): User => {
+  const output: User = {
+    id: user.id,
+    login: user.login,
+    organizations: parseOrganizations(user.organizations),
+    pinnableItems: parseRepositories(user.pinnableItems),
+    pinnedItems: parseRepositories(user.pinnedItems),
+  };
+
+  const following = parseFollowing(user.following);
+  if (following) {
+    output.following = following;
+  }
+
+  const followers = parseFollowers(user.followers);
+  if (followers) {
+    output.followers = followers;
+  }
+
+  const status = parseStatus(user.status);
+  if (status) {
+    output.status = status;
+  }
+
+  const starredRepositories = parseStarredRepositories(user.starredRepositories);
+  if (starredRepositories) {
+    output.starredRepositories = starredRepositories;
+  }
+
+  return output;
+};
 
 /**
  * Retrieves user information from the server.
@@ -174,11 +215,11 @@ export const read = async (token: Token, params: UserReadParams):
 
   return {
     user: user ? parseUser(user) : null,
-    organizations: user?.organizations.nodes ?? [],
+    organizations: user?.organizations?.nodes ?? [],
     repositories: user
       ? [
-        ...user.pinnedItems.repositories,
-        ...user.pinnableItems.repositories,
+        ...user.pinnedItems?.repositories ?? [],
+        ...user.pinnableItems?.repositories ?? [],
       ].map<Repository>(({ languages, resourcePath, ...rest }) => ({
         ...rest,
         resourcePath: resourcePath?.substr(1) ?? rest.name,
