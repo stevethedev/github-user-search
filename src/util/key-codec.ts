@@ -1,3 +1,11 @@
+if (!global.btoa) {
+  global.btoa = (str) => Buffer.from(str, 'binary').toString('base64');
+}
+
+if (!global.atob) {
+  global.atob = (str) => Buffer.from(str, 'base64').toString('binary');
+}
+
 export const encode = (str: string): string => {
   const chars = str.split('').map((c) => c.charCodeAt(0));
   // eslint-disable-next-line no-bitwise

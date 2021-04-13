@@ -13,7 +13,7 @@ interface Props {
 
 const getButtonRange = (start: number, current: number, end: number, buffer: number): number[] => {
   const realCurrent = bound(current, start + buffer, end - buffer);
-  return range(start, end).filter((i) => {
+  return range(start, Math.max(start, end)).filter((i) => {
     // Eliminate if out-of-bounds
     if (i < start || i > end) {
       return false;

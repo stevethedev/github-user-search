@@ -8,10 +8,6 @@ module.exports = (env: NodeJS.ProcessEnv, argv: Record<string, string>) => {
 
   console.log(isProduction ? "PRODUCTION BUILD" : 'DEVELOPMENT BUILD');
 
-  global.btoa = function (str) {
-    return Buffer.from(str, 'binary').toString('base64');
-  };
-
   return {
     devtool: !isProduction && 'cheap-module-source-map',
     mode: isProduction ? 'production' : 'development',
