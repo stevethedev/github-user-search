@@ -62,12 +62,8 @@ export const useOrganizations = (): StateAccessors<Organizations> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: OrganizationsState) => state[ORGANIZATIONS]),
-    (organizations) => dispatch(
+    (organizations) => void dispatch(
       action<SetOrganizationsAction>({ type: ORGANIZATIONS, [ORGANIZATIONS]: organizations }),
     ),
   ];
 };
-
-export const useOrganization = (id: OrganizationIndex): ReadonlyDeep<Organization> | null => (
-  useSelector(({ [ORGANIZATIONS]: organizations }: OrganizationsState) => organizations[id]) ?? null
-);

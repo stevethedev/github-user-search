@@ -40,6 +40,6 @@ export const usePage = (): StateAccessors<PageState[typeof PAGES]> => {
   const dispatch = useDispatch();
   return [
     useSelector((state: PageState) => state[PAGES]),
-    (page) => dispatch(action<SetPageAction>({ type: PAGES, [PAGES]: page })),
+    (page) => void dispatch(action<SetPageAction>({ type: PAGES, [PAGES]: page })),
   ];
 };
